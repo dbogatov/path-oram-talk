@@ -1,24 +1,30 @@
 {
-	"cSpell.words": [
-		"ORAM",
-		"amsalpha",
-		"beamer",
-		"includegraphics",
-		"keepaspectratio",
-		"usetheme",
-		"Bogatov",
+    "cSpell.words": [
+        "Bogatov",
         "Captcha",
         "Diffie",
         "Dmytro",
         "Edmonds",
         "Fulkerson",
         "Karp",
+        "ORAM",
+        "Untrusted",
+        "alertblock",
+        "amsalpha",
+        "beamer",
         "bijection",
         "bijective",
         "chktex",
         "cryptosystem",
         "dbogatov",
         "distinguisher",
-        "indistinguishability"
-	]
+        "frametitle",
+        "includegraphics",
+        "indistinguishability",
+        "keepaspectratio",
+        "orams",
+        "parametrization",
+        "progressbar",
+        "usetheme"
+    ]
 }

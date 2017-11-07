@@ -2,15 +2,24 @@
 
 \section{Oblivious Memory}
 
-	\begin{frame}{What is oblivious}
+	\begin{frame}{Problem statement}
+		
+		Untrusted server.
+		Secure database --- each record is encrypted.
+		What are we missing?
 
-		\begin{definition}
-			A machine is \textit{oblivious} if the sequence in which it accesses memory locations is equivalent for any two inputs with the same running time~\cite{Goldreich:1996:SPS:233551.233553}.
-		\end{definition}
+		\pause%
+
+		\begin{alertblock}{Security vulnerability}
+			Adversary still sees the \textbf{access pattern}.
+		\end{alertblock}
 
 	\end{frame}
 
-	\begin{frame}{References}
-		\bibliographystyle{amsalpha}
-		\bibliography{bibfile}
+	\begin{frame}{Oblivious RAM}
+
+		\begin{block}{Definition}
+			A machine is \emph{oblivious} if the sequence in which it accesses memory locations is equivalent for any two inputs with the same running time~\cite{Goldreich:1996:SPS:233551.233553}.
+		\end{block}
+
 	\end{frame}

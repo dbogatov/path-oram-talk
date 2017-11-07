@@ -1,3 +1,5 @@
+% cSpell:ignore bibfile
+
 \documentclass{beamer}
 
 \input{preamble}
@@ -6,11 +8,30 @@
 
 	\maketitle
 
-	% TOC
 	\begin{frame}{Table of Contents}
 		\tableofcontents
 	\end{frame}
 
 	\input{sections/oblivious-memory}
+	\input{sections/overview-of-other-orams}
+	\input{sections/problem-definition}
+	\input{sections/path-oram-protocol}
+	\input{sections/recursion-and-parametrization}
+	\input{sections/bounds-on-stash-usage}
+	\input{sections/evaluation}
+	\input{sections/applications-and-extensions}
+	\input{sections/conclusion}
+
+
+	\begin{frame}[standout]
+		Questions?
+	\end{frame}
+	
+	\begin{frame}{References}
+		\bibliographystyle{amsalpha}
+		\bibliography{bibfile}
+	\end{frame}
+
+	\maketitle
 
 \end{document}

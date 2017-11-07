@@ -44,6 +44,7 @@ while getopts "i:vgt" o; do
 	case "${o}" in
 		g)
 			DEBUG=true
+			INTERACTION=batchmode
 			;;
 		v)
 			VERBOSE=true
