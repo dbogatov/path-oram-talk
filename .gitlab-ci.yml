@@ -1,0 +1,35 @@
+stages:
+- lint
+- build
+
+chktex:
+  image: tianon/latex
+  stage: lint
+  script:
+  - chktex -eall -n22 -n46 -n30 -n3 -e16 -I0 -v2 -o chktex.out */**/*.tex *.tex || true
+  - cat chktex.out
+  - "! [ -s chktex.out ]"
+  tags:
+  - docker
+
+cspell:
+  image: dbogatov/docker-images:cspell-latest
+  stage: lint
+  script:
+  - sed -e "s/cSpell\.//g" .vscode/settings.json > .vscode/cspell.json
+  - cspell -c .vscode/cspell.json */**/*.tex *.tex
+  tags:
+  - docker
+
+artifacts:
+  image: tianon/latex
+  stage: build
+  script:
+  - printf "%s" $CI_BUILD_REF | cut -c1-8 > version.tex
+  - ./build.sh -a
+  - mv dist/*.pdf .
+  artifacts:
+    paths:
+    - "*.pdf"
+  tags:
+  - docker
