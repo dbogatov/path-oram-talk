@@ -25,6 +25,7 @@ artifacts:
   image: tianon/latex
   stage: build
   script:
+  - ./install-font-debian.sh
   - printf "%s" $CI_BUILD_REF | cut -c1-8 > version.tex
   - ./build.sh
   - mv dist/*.pdf .
