@@ -1,0 +1,78 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Compile once notes",
+			"type": "shell",
+			"command": "./build.sh -i 1 -n",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Compile multiple notes",
+			"type": "shell",
+			"command": "./build.sh -n",
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Compile multiple",
+			"type": "shell",
+			"command": "./build.sh",
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Compile once",
+			"type": "shell",
+			"command": "./build.sh -i 1",
+			"group": "build",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Test chktex and cspell",
+			"type": "shell",
+			"command": "./build.sh -t",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": true,
+				"panel": "shared"
+			},
+			"problemMatcher": []
+		}
+	]
+}
