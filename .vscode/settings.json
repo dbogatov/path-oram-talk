@@ -24,12 +24,14 @@
         "includegraphics",
         "indistinguishability",
         "keepaspectratio",
+        "midrule",
         "orams",
         "parametrization",
         "progressbar",
         "providecommand",
         "smallcaps",
         "titleformat",
+        "toprule",
         "usetheme"
     ]
 }
