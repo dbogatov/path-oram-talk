@@ -28,6 +28,7 @@ artifacts:
   - ./install-font-debian.sh
   - printf "\providecommand{\\\version}{%s}" $(echo $CI_BUILD_REF | cut -c1-8) > version.tex
   - ./build.sh
+  - ./build.sh -n -c presentation-with-notes
   - mv dist/*.pdf .
   artifacts:
     paths:

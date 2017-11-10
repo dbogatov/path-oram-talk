@@ -5,7 +5,9 @@
 	titleformat section=smallcaps
 ]{metropolis}
 
-\setbeameroption{show notes on second screen}
+\ifnotes%
+	\setbeameroption{show notes on second screen}
+\fi
 
 \title{Data-X Talk} % chktex 13
 

@@ -1,0 +1,20 @@
+% cSpell:disable
+
+% CLI arguments
+
+\newif\ifrelease%
+
+\ifdefined\debug%
+	\releasefalse%
+\else
+	\releasetrue%
+\fi
+
+
+\newif\ifnotes%
+
+\ifdefined\generatenotes%
+	\notestrue%
+\else
+	\notesfalse%
+\fi
