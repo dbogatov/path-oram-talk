@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-apt update
-apt install -y wget unzip 
+apt-get update
+apt-get install -y wget unzip 
 
 wget https://github.com/carrois/Fira/archive/master.zip
 unzip master.zip
