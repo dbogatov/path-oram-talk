@@ -1,1 +1,79 @@
+% cSpell:ignore Maas EECS
+
 \section{Problem definition}
+
+	\begin{frame}{Notations}
+		
+		\begin{itemize}
+			\item 
+				The client fetches/stores data in atomic units --- \emph{blocks} --- of size $B$ each
+			\item 
+				Let $N$ be the working set --- number of distinct data blocks stored in ORAM
+		\end{itemize}
+
+		\note{
+			Let us start with some notation.
+			Assume that all data comes in atomic units called blocks and assume that we have $N$ distinct blocks in ORAM.
+		}
+	\end{frame}
+
+	\begin{frame}{Simplicity}
+		
+		\begin{quote}
+			We aim to provide an extremely simple ORAM construction in contrast with previous work
+		\end{quote}
+		
+		Can then be implemented in hardware~\cite{Maas:EECS-2014-89}.
+
+		\note{
+			Another goal is simplicity.
+			It not only allows us to analyze system easily.
+			In case of Path ORAM, it is so simple that it has been implemented in pure hardware.
+		}
+	\end{frame}
+
+	\begin{frame}{Security definitions}
+		
+		\begin{block}{Formal security definition}
+			
+			Data request sequence of length $M$, where each $\text{op}_i$ denotes a $\text{read}(\text{a}_i)$ or a $\text{write}(\text{a}_i, \text{data}_I)$ operation
+			
+			\[
+				\vec{y} := ( (\text{op}_M, \text{a}_M, \text{data}_M), \ldots , (\text{op}_1, \text{a}_1, \text{data}_1) )
+			\]
+
+			Let $A(\vec{y})$ denote the (possibly randomized) sequence of accesses to the remote storage given the sequence of data requests $\vec{y}$.
+
+		\end{block}
+
+		\note{
+			Let us define what we mean by access pattern.
+			We mean a sequence of operation --- writes and reads --- one some blocks with identifiers $\text{a}_i$ reading or writing some $\text{data}_i$.
+			Say we have $M$ operation in sequence.
+		}
+	\end{frame}
+
+	\begin{frame}{Security definitions}
+		
+		\begin{block}{Formal security definition}
+			
+			An ORAM construction is said to be secure if
+
+			\begin{itemize}
+				\item 
+					for any two data request sequences $\vec{y}$ and $\vec{z}$ of the same length, their access patterns $A(\vec{y})$ and $A(\vec{z})$ are computationally indistinguishable by anyone but the client
+				\item 
+					the ORAM construction is correct with probability $p \ge 1 - negl(|\vec{y}|)$.
+			\end{itemize}
+
+		\end{block}
+
+		\note{
+			The most important one.
+			We call a construction secure if an adversary cannot tell, which sequence of operations really went through the construction.
+			Indistinguishability is a strong requirement --- it says that we leak absolutely no information about our patterns.
+			And indeed, we need to correctly respond to client requests.
+			Since we allow randomized algorithms, we set another requirement on error probability.
+			It has to be negligibly small.
+		}
+	\end{frame}

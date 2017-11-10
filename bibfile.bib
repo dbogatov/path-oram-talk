@@ -36,3 +36,38 @@
 	acmid = {2994528},
 	publisher = {VLDB Endowment},
 } 
+
+@article{DBLP:journals/corr/abs-1202-5150,
+	author    = {Emil Stefanov and Elaine Shi},
+	title     = {Path {O-RAM:} An Extremely Simple Oblivious {RAM} Protocol},
+	journal   = {CoRR},
+	volume    = {abs/1202.5150},
+	year      = {2012},
+	url       = {http://arxiv.org/abs/1202.5150},
+	archivePrefix = {arXiv},
+	eprint    = {1202.5150},
+	timestamp = {Wed, 07 Jun 2017 14:40:19 +0200},
+	biburl    = {http://dblp.org/rec/bib/journals/corr/abs-1202-5150},
+	bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+
+@mastersthesis{Maas:EECS-2014-89,
+    Author = {Maas, Martin},
+    Title = {PHANTOM: Practical Oblivious Computation in a Secure Processor},
+    School = {EECS Department, University of California, Berkeley},
+    Year = {2014},
+    Month = {May},
+    URL = {http://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-89.html},
+    Number = {UCB/EECS-2014-89},
+    Abstract = {
+		Confidentiality of data is a major problem as sensitive computations migrate to the cloud. Employees in a data center have physical access to machines and can carry out attacks that have traditionally only affected client-side crypto-devices such as smartcards. For example, an employee can snoop confidential data as it moves in and out of the processor to learn secret keys or other program information that can be used for targeted attacks.
+
+		Secure processors have been proposed as a counter-measure to these attacks -- such processors are physically shielded and enforce confidentiality by encrypting all data outside the chip, e.g. in DRAM or non-volatile storage. While first proposals were academic in nature, this model is now starting to appear commercially, such as in the Intel SGX extensions.
+
+		Although secure processors encrypt all data as it leaves the CPU, the memory addresses that are being accessed in DRAM are still transmitted in plaintext on the address bus. This represents an important source of information leakage that enables serious attacks that can, in the worst case, leak bits of cryptographic keys. To counter such attacks, we introduce PHANTOM, a new secure processor that obfuscates its memory access trace. To an adversary who can observe the processor's output pins, all memory access traces are computationally indistinguishable (a property known as obliviousness). We achieve obliviousness through a cryptographic construct known as Oblivious RAM (ORAM).
+
+		Existing ORAM algorithms introduce a large (100-200x) overhead in the amount of data moved from memory, which makes ORAM inefficient on real-world workloads. To tackle this problem, we develop a highly parallel ORAM memory controller to reduce ORAM memory access latency and demonstrate the design as part of the PHANTOM secure processor, implemented on a Convey HC-2ex. The HC-2ex is a system that comprises an off-the-shelf x86 CPU paired with 4 high-end FPGAs with a highly parallel memory system.
+
+		Our novel ORAM controller aggressively exploits the HC-2ex's high DRAM bank parallelism to reduce ORAM access latency and scales well to a large number of memory channels. PHANTOM is efficient in both area and performance: accessing 4KB of data from a 1GB ORAM takes 26.2us (13.5us until the data is available), a 32x slowdown over accessing 4KB from regular memory, while SQLite queries on a population database see 1.2-6x slowdown.
+	}
+}
