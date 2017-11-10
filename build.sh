@@ -3,7 +3,7 @@
 shopt -s globstar
 set -e
 
-INTERACTION=nonstopmode
+INTERACTION=batchmode
 OUTDIR=dist
 JOBNAME=presentation
 ITERATIONS=3
@@ -44,7 +44,7 @@ while getopts "i:vgt" o; do
 	case "${o}" in
 		g)
 			DEBUG=true
-			INTERACTION=batchmode
+			INTERACTION=nonstopmode
 			;;
 		v)
 			VERBOSE=true

@@ -1,1 +1,37 @@
 \section{Overview of other ORAMs}
+
+	\begin{frame}{ORAMs Experimental Evaluation}
+		
+		\begin{tabular}{ l c c c c }
+
+			\toprule%
+
+			$ORAM$				& Computation	& Communication	& Server		& Client															\\
+
+			\midrule%
+
+			Basic-SR			& $N \log N$	& $N \log N$	& $N$			& $1$																\\
+			IBS-SR				& $N$			& $\sqrt{N}$	& $N$			& $\sqrt{N}$														\\
+			Basic-HR			& $N \log^2 N$	& $N \log^2 N$	& $N \log N$	& $1^b$																\\
+			BB-ORAM				& $\log^2 N$	& $N \log^2 N$	& $N \log N$	& $1$																\\
+			TP-ORAM				& $\sqrt{N}$	& $1$			& $N$			& $\sqrt{N} + \frac{N}{B}$											\\
+			\textbf{Path-ORAM}	& $\bm{\log N}$	& $\bm{1}$		& $\bm{N}$		& \footnote{$\BigO{\log N} \cdot \omega(1) + \BigO{\frac{N}{B}}$}
+
+		\end{tabular}
+
+		Table 2 from~\cite{Chang:2016:ORD:2994509.2994528}.
+		Worst-case scenarios shown.
+
+		\note{
+			Chang and others published a great paper a year ago doing accurate comparison of known ORAM systems.
+			They analyzed space and time complexity of the systems.
+			The result is on the table.
+
+			Computational overhead is a composite of communication, encryption/decryption and client running overheads.
+			Communication overhead measures how much information is transmitted during a round of read and write.
+			Server and client respectively show how much space is used by an ORAM on the server and on the client.
+
+			I am not going to elaborate on all ORAMs, but it is clear that one of them wins in every category.
+			This is why we have chosen it for our secure cloud.
+		}
+	\end{frame}

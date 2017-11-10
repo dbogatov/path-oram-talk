@@ -1,8 +1,15 @@
-\usetheme[progressbar=frametitle]{metropolis}
+% cSpell:disable
 
-\title{Path ORAM: An Extremely Simple Oblivious RAM Protocol} % chktex 13
+\usetheme[
+	progressbar=frametitle,
+	titleformat section=smallcaps
+]{metropolis}
 
-\subtitle{Discussion}
+\setbeameroption{show notes on second screen}
+
+\title{Data-X Talk} % chktex 13
+
+\subtitle{Path ORAM:\@An Extremely Simple Oblivious RAM Protocol}
 
 \date{Built from \href{https://git.dbogatov.org/bu/PathORAM-Talk/commit/\version}{\emph{\version}} on \today}
 
@@ -17,3 +24,15 @@
 		keepaspectratio
 	]{static/logo.eps}\hspace{325pt}\vspace{-30pt}
 }
+
+\makeatletter
+\def\beamer@framenotesbegin{% at beginning of slide
+	\usebeamercolor[fg]{normal text} 
+		\gdef\beamer@noteitems{}%
+		\gdef\beamer@notes{}% 
+}
+\makeatother
+
+
+\newcommand{\BigO}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\RAM}{\textbf{RAM}}

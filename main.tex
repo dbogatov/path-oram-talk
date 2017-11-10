@@ -3,6 +3,8 @@
 \documentclass{beamer}
 
 \input{version}
+
+\input{packages}
 \input{preamble}
 
 \begin{document}
@@ -11,6 +13,18 @@
 
 	\begin{frame}{Table of Contents}
 		\tableofcontents
+		
+		\note{
+			\begin{itemize}
+				\item 
+					Start with the problem statement.
+					What an ORAM is and why we need it.
+				\item
+					Talk about what ORAMs are already there and what they disadvantages are.
+				\item
+					Then go in the same order as paper goes.
+			\end{itemize}
+		}
 	\end{frame}
 
 	\input{sections/oblivious-memory}
@@ -23,7 +37,6 @@
 	\input{sections/applications-and-extensions}
 	\input{sections/conclusion}
 
-
 	\begin{frame}[standout]
 		Questions?
 	\end{frame}
@@ -32,7 +45,11 @@
 		\bibliographystyle{amsalpha}
 		\bibliography{bibfile}
 	\end{frame}
-
+	
 	\maketitle
+	
+	\appendix
+
+	\input{sections/appendix}
 
 \end{document}

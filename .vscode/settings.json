@@ -10,6 +10,8 @@
         "ORAM",
         "Untrusted",
         "alertblock",
+        "allcaps",
+        "allsmallcaps",
         "amsalpha",
         "beamer",
         "bijection",
@@ -26,6 +28,8 @@
         "parametrization",
         "progressbar",
         "providecommand",
+        "smallcaps",
+        "titleformat",
         "usetheme"
     ]
 }
