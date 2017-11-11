@@ -1,1 +1,75 @@
 \section{Path ORAM protocol}
+
+	\subsection{Overview}
+
+		\begin{frame}{Main invariant}
+			
+			The client stores a small amount of local data in a \textbf{stash}.
+			The server-side storage is treated as a \textbf{binary tree} where each node is a \textbf{bucket} that can hold up to a fixed number of \textbf{blocks}.
+
+			\begin{block}{Invariant}
+				At any time, each block is mapped to a uniformly random leaf bucket in the tree, and unstashed blocks are always placed in some bucket along the path to the mapped leaf.
+			\end{block}
+
+			\note{
+				An underlying data structure for PAth ORAM is a binary tree.
+				Client has a position table where each data block ID is mapped to the leaf node.
+				Each time access occurs, whole path from the leaf to the root gets read and written.
+				This ensures indistinguishability.
+			}
+		\end{frame}
+
+	\subsection{Server storage}
+
+		\begin{frame}{Binary tree}
+			
+			The server stores a binary tree data structure of height $L$ and $2^L$ leaves.
+			We then need $L = \ceil*{ \log_2 N }$. 
+			The levels of the tree are numbered $0$ to $L$ where level $0$ denotes the root of the tree and level $L$ denotes the leaves.
+
+			\note{
+				Let us define $L$ --- the height of our tree.
+				Then reasonably it will be equal to $\log_2 N$ rounded up.
+				Let us also define 0 level as root and $L$th level as leaves.
+			}
+		\end{frame}
+
+		\begin{frame}{Bucket}
+			
+			Each node in the tree is called a bucket. 
+			Each bucket can contain up to $Z$ real blocks. 
+			If a bucket has less than $Z$ real blocks, it is padded with dummy blocks to always be of size $Z$.
+
+			\note{
+				Each node in a tree is a bucket that contains $Z$ blocks.
+				For the sake of indistinguishability, we pad bucket with dummy encrypted blocks.
+				Choice of $Z$ is a parameter.
+				Experimental results show that small constant, eq.\ 4, will suffice.
+			}
+		\end{frame}
+
+		\begin{frame}{Path}
+			
+			Let $x \in \{ 0, 1, \ldots, 2^L - 1 \}$ denote the $x_{\text{th}}$ leaf node in the tree. 
+			Any leaf node $x$ defines a unique path from leaf $x$ to the root of the tree.
+			We use $\mathcal{P}(x)$ to denote set of buckets along the path from leaf $x$ to the root. 
+			Additionally, $\mathcal{P}(x,l)$ denotes the bucket in $\mathcal{P}(x)$ at level $l$ in the tree.
+
+			\note{
+				Let us define a path from leaf $x$ to root as $\mathcal{P}(x)$.
+				Let us also define $\mathcal{P}(x,l)$ as the bucket along the path at level $l$.
+			}
+		\end{frame}
+
+		\begin{frame}{Server storage}
+			
+			\begin{block}{Observation}
+				Total server storage used is about $Z \cdot N$ blocks.
+				Since $Z$ is s small constant, server storage is $\BigO{N}$.
+			\end{block} 
+
+			\note{
+				Let us make an important observation.
+				The total server storage used is the order of $N$ since $Z$ is s small constant.
+			}
+		\end{frame}
