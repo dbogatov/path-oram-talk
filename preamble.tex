@@ -28,16 +28,34 @@
 }
 
 \makeatletter
-\def\beamer@framenotesbegin{% at beginning of slide
-	\usebeamercolor[fg]{normal text} 
-		\gdef\beamer@noteitems{}%
-		\gdef\beamer@notes{}% 
-}
+	\def\beamer@framenotesbegin{% at beginning of slide
+		\usebeamercolor[fg]{normal text} 
+			\gdef\beamer@noteitems{}%
+			\gdef\beamer@notes{}% 
+	}
 \makeatother
 
 
 \newcommand{\BigO}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\BigOmega}[1]{\Omega\left(#1\right)}
 \newcommand{\RAM}{\textbf{RAM}}
 
 \DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 \DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\lstset{
+	mathescape=true,
+	numbers=left,
+	tabsize=4,
+	numbersep=10pt,
+	breaklines=true,
+	showtabs=false,
+	morekeywords={for,end,do,while,if,then,else,Applies,when,return,true,false,Action},
+	basicstyle=\normalfont,
+	columns=fullflexible,
+	frame=leftline,
+	xleftmargin=15pt,
+	escapechar=|
+}
+
+\newsavebox{\mybox}

@@ -1,3 +1,5 @@
+% cSpell:ignore mybox
+
 \section{Path ORAM protocol}
 
 	\subsection{Overview}
@@ -21,11 +23,13 @@
 
 	\subsection{Server storage}
 
-		\begin{frame}{Binary tree}
+		\begin{frame}{\subsecname}
 			
-			The server stores a binary tree data structure of height $L$ and $2^L$ leaves.
-			We then need $L = \ceil*{ \log_2 N }$. 
-			The levels of the tree are numbered $0$ to $L$ where level $0$ denotes the root of the tree and level $L$ denotes the leaves.
+			\begin{block}{Binary tree}
+				The server stores a binary tree data structure of height $L$ and $2^L$ leaves.
+				We then need $L = \ceil*{ \log_2 N }$. 
+				The levels of the tree are numbered $0$ to $L$ where level $0$ denotes the root of the tree and level $L$ denotes the leaves.
+			\end{block}
 
 			\note{
 				Let us define $L$ --- the height of our tree.
@@ -34,11 +38,13 @@
 			}
 		\end{frame}
 
-		\begin{frame}{Bucket}
+		\begin{frame}{\subsecname}
 			
-			Each node in the tree is called a bucket. 
-			Each bucket can contain up to $Z$ real blocks. 
-			If a bucket has less than $Z$ real blocks, it is padded with dummy blocks to always be of size $Z$.
+			\begin{block}{Bucket}
+				Each node in the tree is called a bucket. 
+				Each bucket can contain up to $Z$ real blocks. 
+				If a bucket has less than $Z$ real blocks, it is padded with dummy blocks to always be of size $Z$.
+			\end{block}
 
 			\note{
 				Each node in a tree is a bucket that contains $Z$ blocks.
@@ -48,12 +54,14 @@
 			}
 		\end{frame}
 
-		\begin{frame}{Path}
+		\begin{frame}{\subsecname}
 			
-			Let $x \in \{ 0, 1, \ldots, 2^L - 1 \}$ denote the $x_{\text{th}}$ leaf node in the tree. 
-			Any leaf node $x$ defines a unique path from leaf $x$ to the root of the tree.
-			We use $\mathcal{P}(x)$ to denote set of buckets along the path from leaf $x$ to the root. 
-			Additionally, $\mathcal{P}(x,l)$ denotes the bucket in $\mathcal{P}(x)$ at level $l$ in the tree.
+			\begin{block}{Path}
+				Let $x \in \{ 0, 1, \ldots, 2^L - 1 \}$ denote the $x_{\text{th}}$ leaf node in the tree. 
+				Any leaf node $x$ defines a unique path from leaf $x$ to the root of the tree.
+				We use $\mathcal{P}(x)$ to denote set of buckets along the path from leaf $x$ to the root. 
+				Additionally, $\mathcal{P}(x,l)$ denotes the bucket in $\mathcal{P}(x)$ at level $l$ in the tree.
+			\end{block}
 
 			\note{
 				Let us define a path from leaf $x$ to root as $\mathcal{P}(x)$.
@@ -61,9 +69,9 @@
 			}
 		\end{frame}
 
-		\begin{frame}{Server storage}
+		\begin{frame}{\subsecname}
 			
-			\begin{block}{Observation}
+			\begin{block}{Server storage size}
 				Total server storage used is about $Z \cdot N$ blocks.
 				Since $Z$ is s small constant, server storage is $\BigO{N}$.
 			\end{block} 
@@ -73,3 +81,225 @@
 				The total server storage used is the order of $N$ since $Z$ is s small constant.
 			}
 		\end{frame}
+
+	\subsection{Client storage}
+
+		\begin{frame}{\subsecname}
+			
+			\begin{block}{Stash}
+				The client locally stores overflowing blocks in a local data structure $S$ called the stash.
+				The stash has a worst-case size of $\BigO{\log N} \cdot \omega (1)$ blocks with high probability.
+				The stash is usually empty after each ORAM read/write operation completes.
+			\end{block} 
+
+			\note{
+				The core component of the client is stash.
+				It is a local data structure that stores overflowing blocks.
+				PathORAM protocol is a randomized, and the error is the event that this stash overflows.
+				The analysis, though, shows that this happens with negligible probability.
+			}
+		\end{frame}
+
+		\begin{frame}{\subsecname}
+			
+			\begin{block}{Position map}
+				The client stores a position map, such that $x := \text{position}[a]$ means that block $a$ is currently mapped to the $x_\text{th}$ leaf node --- this means that block $a$ resides in some bucket in path $\mathcal{P}(x)$, or in the stash. 
+				The position map changes over time as blocks are accessed and remapped.
+			\end{block} 
+
+			\note{
+				Another core structure of the client is the position table.
+				It is a simple lookup table that maps the block identifier with identifier $a$ to some leaf $x$.
+				The bucket does not necessarily live in the leaf, but it is guaranteed to leave somewhere along the path or in the stash.
+				The key to security is the re-randomization of this table each access.
+			}
+		\end{frame}
+
+		\begin{frame}{\subsecname}
+			
+			\begin{block}{Bandwidth}
+				For each load or store operation, the client reads a path of $Z \log N$ blocks from the server and then writes them back, resulting in a total of $2Z \log N$ blocks bandwidth used per access. 
+				Since $Z$ is a constant, the bandwidth usage is $\BigO{\log N}$ blocks.
+			\end{block} 
+
+			\note{
+				Each read and write, client reads whole path and writes it back.
+				A path is $Z \log N$ blocks, and since $Z$ is a small constant, resulting usage is $\BigO{\log N}$ in the number of blocks.
+			}
+		\end{frame}
+
+		\begin{frame}{\subsecname}
+			
+			\begin{block}{Client storage size}
+				The position map is of size $N L = N \log N$ bits, which is of size $\BigO{N}$ blocks when the block size $\BigOmega{\log N}$.
+				The stash is at most $\BigO{\log N} \cdot \omega (1)$ blocks to obtain negligible failure probability.
+				The recursive construction can achieve client storage of $\BigO{\log N} \cdot \omega (1)$.
+			\end{block} 
+
+			\note{
+				Position map is the order of $N$ and the stash is order of $\log N$ for negligible error probability.
+				So, for the basic PAthORAM the client storage usage is order fo $N$.
+				However, it is possible to use recursive version of the ORAM, which I will talk about later, to lower the usage to the order of $\log N$.
+			}
+		\end{frame}
+
+	\subsection{The algorithm}
+
+		\newcommand{\algName}{\textsc{Access$(op, a, data^{\mbox{*}})$}}
+
+%%% fragile frame
+\begin{frame}[fragile]{Remap block}
+		
+	\lstinputlisting[
+		firstline=1, 
+		lastline=2,
+		firstnumber=1,
+		title=\algName%
+	]{listings/algorithm.tex}
+	
+	\note{
+		The client stash $S$ is initially empty. 
+		The server buckets are initialized to contain random encryptions of the dummy block. 
+		The client's position map is filled with independent random numbers between 0 and $2^L - 1$.
+	}
+
+\end{frame}
+%%% end fragile frame
+
+%%% fragile frame
+\begin{frame}[fragile]{Read path}
+	
+	\lstinputlisting[
+		firstline=3, 
+		lastline=5,
+		firstnumber=3,
+		title=\algName%
+	]{listings/algorithm.tex}
+
+	\note{
+		Read the path $\mathcal{P}(x)$ containing block $a$.
+	}
+
+\end{frame}
+%%% end fragile frame
+
+%%% fragile frame
+\begin{frame}[fragile]{Update block}
+	
+	\lstinputlisting[
+		firstline=6,
+		lastline=9,
+		firstnumber=6,
+		title=\algName%
+	]{listings/algorithm.tex}
+
+	\note{
+		If the access is a write, update the data stored for block $a$.
+	}
+
+\end{frame}
+%%% end fragile frame
+
+%%% fragile frame
+\begin{frame}[fragile]{Write path back}
+		
+	\lstinputlisting[
+		firstline=10, 
+		lastline=15,
+		firstnumber=10,
+		title=\algName%
+	]{listings/algorithm.tex}
+
+	\note{
+		Write the path back and possibly include some additional blocks from the stash if they can be placed into the path.
+		Buckets are greedily filled with blocks in the stash in the order of leaf to root, ensuring that blocks get pushed as deep down into the tree as possible.
+		A block $a^\prime$ can be placed in the bucket at level $\ell$ only if the path $\mathcal{P}( \text{position}[a^\prime])$ to the leaf of block $a^\prime$ intersects the path accessed $\mathcal{P}(x)$ at level $\ell$.
+		In other words, if $\mathcal{P}(x, \ell) = \mathcal{P}( \text{position}[a^\prime], \ell)$.
+	}
+
+\end{frame}
+%%% end fragile frame
+
+%%% fragile frame
+\begin{frame}[fragile]{Return}
+		
+	\lstinputlisting[
+		firstline=16,
+		lastline=16,
+		firstnumber=16,
+		title=\algName%
+	]{listings/algorithm.tex}
+
+	\note{
+		At the end, return the block.
+	}
+
+\end{frame}
+%%% end fragile frame
+
+\begin{frame}{Subroutines}
+	
+	\begin{block}{$\textsc{ReadBucket}(bucket)$}
+		The client reads all $Z$ blocks (including any dummy blocks) from the $bucket$ stored on the server. 
+		Blocks are decrypted as they are read.
+	\end{block} 
+
+	\begin{block}{$\textsc{WriteBucket}(bucket, blocks)$}
+		The client writes the blocks $blocks$ into the specified $bucket$ on the server. 
+		When writing, the client \emph{pads} blocks with dummy blocks to make it of size $Z$ --- note that this is important for security. 
+		All blocks (including dummy blocks) are re-encrypted, using a randomized encryption scheme, as they are written.
+	\end{block} 
+
+	\note{
+		There are two important subroutines in the algorithm.
+		
+		$\textsc{ReadBucket}(bucket)$ reads all $Z$ blocks --- remember, there are always exactly $Z$ blocks per bucket and decrypts them as it reads them.
+
+		$\textsc{WriteBucket}(bucket, blocks)$ writes blocks in the bucket on the server.
+		It pads blocks to make it $Z$ blocks total.
+		Remember that all bucket should be filled to make them indistinguishable to adversary.
+		Blocks are encrypted as they are written using randomized scheme --- every cipher text is different for the same plaintext.
+	}
+\end{frame}
+
+\begin{frame}{Complexity}
+	
+	\begin{block}{Computation}
+		Client's computation is $\BigO{\log N} \cdot \omega (1)$ per data access. 
+		We treat the server as a network storage device, so it only needs to do the computation necessary to retrieve and store $\BigO{\log N}$ blocks per data access.
+	\end{block} 
+
+	\note{
+		Each access the client reads and writes the whole path, which is order of $\log N$ in size.
+		It re-encrypts each block, so the total complexity is $\BigO{\log N} \cdot \omega (1)$.
+
+		Server, on the other hand, does not perform encryption, so its complexity is $\BigO{\log N}$.
+	}
+\end{frame}
+
+%%% fragile frame
+\begin{frame}[fragile]{Full algorithm}
+
+	\begin{lrbox}{\mybox}%
+
+		\lstinputlisting[
+			firstline=1,
+			lastline=16,
+			title=\algName%
+		]{listings/algorithm.tex}
+
+	\end{lrbox}%
+	
+	\begin{center}
+
+		\scalebox{0.75}{\usebox{\mybox}}
+
+	\end{center}
+
+	\note{
+		Please, take a few moments and look at the whole algorithm.
+		It is a great time now to ask any questions.
+	}
+
+\end{frame}
+%%% end fragile frame

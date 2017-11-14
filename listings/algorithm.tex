@@ -1,0 +1,16 @@
+$x \gets \text{position}[a]$
+$\text{position}[a] \gets \textsc{UniformRandom} (0 \ldots 2^L - 1)$
+for $\ell \in \{ 0, 1, \ldots , L \}$ do
+    $S \gets S \cup \textsc{ReadBucket}(\mathcal{P}(x, \ell))$
+end for
+data $\gets$ Read block $a$ from $S$
+if $op = write$ then
+    $S \gets (S - \{ (a, data) \} ) \cup \{ (a, data^{\mbox{*}} \} )$
+end if
+for $\ell \in \{ L, L-1, \ldots , 0 \}$ do
+    $S^\prime \gets \{ (a^\prime, data^\prime) \in S : \mathcal{P}(x, \ell) = \mathcal{P}( \text{position}[a^\prime], \ell) \}$
+    $S^\prime \gets$ Select $\min ( | S^\prime |, Z)$ blocks from $S^\prime$
+    $S \gets S - S^\prime$
+    $\textsc{WriteBucket} (\mathcal{P} (x, \ell), S^\prime)$
+end for
+return data
