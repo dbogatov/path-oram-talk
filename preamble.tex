@@ -67,3 +67,15 @@
 }{%
 	\bibstring[\emph]{andothers}%
 }{}{}
+
+\ifrelease%
+	\newsavebox\watermark%
+	\savebox\watermark{\tikz[color=gray,opacity=0.02]\node{\begin{tabular}{c} Dmytro Bogatov \\ BU Class of 2023 \end{tabular}};}
+	\newwatermark*[
+		allpages,
+		angle=0,
+		scale=3,
+		xpos=0,
+		ypos=-25
+	]{\usebox\watermark}
+\fi

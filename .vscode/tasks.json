@@ -6,7 +6,7 @@
 		{
 			"label": "Compile once notes",
 			"type": "shell",
-			"command": "./build.sh -i 1 -n",
+			"command": "./build.sh -g -i 1 -n",
 			"group": {
 				"kind": "build",
 				"isDefault": true
@@ -22,7 +22,7 @@
 		{
 			"label": "Compile multiple notes",
 			"type": "shell",
-			"command": "./build.sh -n",
+			"command": "./build.sh -g -n",
 			"group": "build",
 			"presentation": {
 				"echo": true,
@@ -48,7 +48,7 @@
 		{
 			"label": "Compile once",
 			"type": "shell",
-			"command": "./build.sh -i 1",
+			"command": "./build.sh -g -i 1",
 			"group": "build",
 			"presentation": {
 				"echo": true,
@@ -61,7 +61,7 @@
 		{
 			"label": "Test chktex and cspell",
 			"type": "shell",
-			"command": "./build.sh -t",
+			"command": "./build.sh -g -t",
 			"group": {
 				"kind": "test",
 				"isDefault": true
