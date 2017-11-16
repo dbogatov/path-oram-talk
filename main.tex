@@ -13,7 +13,12 @@
 	\maketitle
 
 	\begin{frame}{Table of Contents}
-		\tableofcontents
+		
+		\begin{multicols}{2}
+
+			\tableofcontents
+
+		\end{multicols}
 		
 		\note{
 			\begin{itemize}
@@ -39,12 +44,15 @@
 	\input{sections/conclusion}
 
 	\begin{frame}[standout]
+
 		Questions?
+
 	\end{frame}
 	
-	\begin{frame}{References}
-		\bibliographystyle{amsalpha}
-		\bibliography{bibfile}
+	\begin{frame}[allowframebreaks]{References}
+		
+		\printbibliography%
+
 	\end{frame}
 	
 	\maketitle

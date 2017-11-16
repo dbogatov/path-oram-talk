@@ -74,7 +74,7 @@ log "DEBUG = ${DEBUG}"
 
 echo "Cleaning up workspace"
 
-rm -f ${OUTDIR}/${JOBNAME}.pdf
+rm -f ${OUTDIR}/${JOBNAME}.{pdf,aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb}
 mkdir -p ${OUTDIR}
 
 log "Done."
@@ -99,7 +99,7 @@ do
 
 	if [ "$j" == "1" ]
 	then
-		bibtex ${OUTDIR}/${JOBNAME}
+		biber ${OUTDIR}/${JOBNAME}
 	fi
 done
 
@@ -107,7 +107,7 @@ log "Done."
 
 echo "Removing build files..."
 
-rm -f ${OUTDIR}/*.{aux,log,out,xwm,toc,nav,snm,bbl,blg}
+rm -f ${OUTDIR}/*.{aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb}
 
 log "Done."
 

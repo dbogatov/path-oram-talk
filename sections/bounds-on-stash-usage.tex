@@ -1,1 +1,50 @@
 \section{Bounds on stash usage}
+
+	\begin{frame}{Probability of failure is negligible}
+		
+		\begin{block}{Main theorem}
+
+			Let $\bm{a}$ be any sequence of block addresses with a working set of size at most $N$. 
+			For a bucket size $Z = 5$, tree height $L = \ceil{\log N}$ and stash size $R$, the probability of a PathORAM failure after a sequence of load/store operations corresponding to $\bm{a}$, is at most
+			
+			\[
+				\Pr \left[ \text{st} \left( \text{ORAM}_L^5 [ \bm{s} ] \right) > R | a( \bm{s} ) = \bm{a} \right] \le 14 \cdot (0.6002)^R
+			\]
+
+			where the probability is over the randomness that determines $\bm{x}$ and $\bm{y}$ in $\bm{s = (a, x, y)}$.
+
+		\end{block}
+
+		\note{
+			The whole proof of negligible failure probability is about proving this theorem.
+			It might look complex, but simply put, what is says is that for any ORAM with 5 blocks per bucket, stash usage exceeds some stash size $R$ with probability at most exponentially small with respect ot $R$.
+
+			Or, even simpler, the probability of exceeding stash capacity decreases exponentially with the stash size, given that the bucket size $Z$ is large enough.
+
+			The authors prove this theorem in three steps.
+		}
+	\end{frame}
+
+	\begin{frame}{Probability of failure is negligible}
+		
+		\begin{block}{Proof outline}
+			
+			\begin{enumerate}
+				\item 
+					Introduce a second ORAM, called $\infty$-ORAM
+				\item 
+					Characterize the distributions of real blocks over buckets in a $\infty$-ORAM for which post-processing leads to a stash usage $> R$
+				\item 
+					Analyze the usage of subtrees $T$ (introduced in the proof)
+			\end{enumerate}
+
+		\end{block}
+
+		\note{
+			First, they introduce a second ORAM, called $\infty$-ORAM, together with an algorithm that post-processes the stash and buckets of $\infty$-ORAM in such a way that the blocks over buckets distribution of $\infty$-ORAM and real ORAM are the same.
+
+			Second, they show that the stash usage after post-processing is $> R$ if and only if there exists a subtree $T$ for which its ``usage'' in $\infty$-ORAM is more than its ``capacity''.
+
+			Finally, they show how a mixture of a binomial and a geometric probability distribution expresses the probability of the number of real blocks that do not get evicted from a subtree after a sequence of load/store operations.
+		}
+	\end{frame}

@@ -1,1 +1,52 @@
+% cSpell:ignore DBLP FPGAs
+% cSpell:ignoreRegExp /textcite{.*}/
+% cSpell:ignoreRegExp /cite{.*}/
+
 \section{Applications and extensions}
+
+	\begin{frame}{Oblivious Binary Search Tree}
+		
+		PathORAM can be used to perform search on an oblivious binary search tree, using $\BigO{\log^2 N}$ bandwidth.~\cite{Gentry:2013}
+
+		\note{
+			TODO
+		}
+	\end{frame}
+
+	\begin{frame}{Stateless ORAM}
+		
+		In order to avoid complicated (and possibly expensive) oblivious state synchronization between the clients, \citeauthor{DBLP:journals/corr/abs-1105-4125} introduce the concept of stateless ORAM~\cite{DBLP:journals/corr/abs-1105-4125} where the client state is small enough so that any client accessing the ORAM can download it before each data access and upload it afterwards.
+
+		\note{
+			If we are using recursive PathORAM, we can upload and download client state --- which is $\BigO{\log N} \cdot \omega (1)$ --- before each access.
+			This ways we can build a \emph{stateless} ORAM --- potentially, multi-user ORAM\@.
+		}
+	\end{frame}
+
+	\begin{frame}{Secure Processors}
+		
+		PathORAM is particularly amenable to hardware design because of its simplicity and low on-chip storage requirements.
+
+		For example,~\textcite{Maas:EECS-2014-89} built a hardware implementation of a Path ORAM based secure processor using FPGAs and the Convey platform. % chktex 8
+
+		\note{
+			Due to its simplicity, PathORAM is particularly good for silicon implementations.
+			For example, Martin Mass has build such implementation using FPGAs.
+		}
+	\end{frame}
+
+	\begin{frame}{Integrity}
+		
+		The protocol can be easily extended to provide integrity (with freshness) for every access to the untrusted server storage.
+
+		We can achieve integrity by simply treating the Path ORAM tree as a \emph{Merkle tree} where data is stored in all nodes of the tree.
+
+		\[
+			H (b_1 || b_2 || \ldots || b_Z || h_1 || h_2 )
+		\]
+
+		\note{
+			It is possible to treat PAthORAM internal tree structure as a Merkle tree.
+			Each node is tagged with the hash of the following form, which is a concatenation of hashes of all blocks in the bucket, and left and right child of the node.
+		}
+	\end{frame}

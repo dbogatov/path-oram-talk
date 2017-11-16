@@ -1,1 +1,27 @@
+% cSpell:ignore DBLP
+
 \section{Recursion and parametrization}
+
+	\begin{frame}{Recursion technique}
+		
+		In our non-recursive scheme described in the previous section, the client must store a relatively large position map.
+
+		The idea is simple: instead	of storing the position map on the client side, we store the position map on the server side in a smaller ORAM, and recurse~\cite{Shi:2011, DBLP:journals/corr/abs-1106-3652}.
+
+		\note{
+			One of the ways to make the client even thinner is to use recursion.
+			Zero-level ORAM contains data blocks, the position map of $i_\text{th}$ ORAM is stored in the ${(i+1)}_\text{st}$ ORAM, and the client stores the position map for the last ORAM\@.
+			The access to a block in a zero-level ORAM triggers recursive calls all up to the last ORAM\@.
+		}
+	\end{frame}
+
+	\begin{frame}{Shared Stash}
+		
+		The client storage for the recursive PathORAM construction (with non-uniform block sizes) can be reduced from $\BigO{\log^2 N} \cdot \omega (1)$ to $\BigO{\log N} \cdot \omega (1)$ by having a \emph{single stash} shared among all levels of the recursion. 
+		This is possible while still maintaining a negligible probability of stash overflow.
+
+		\note{
+			It is proven in the paper that we do not need to have separate stash for every level of recursion to maintain negligible probability of failure.
+			Having single stash reduces client storage by the order of $\log N$.
+		}
+	\end{frame}

@@ -27,6 +27,8 @@
 	]{static/logo.eps}\hspace{325pt}\vspace{-30pt}
 }
 
+\addbibresource{bibfile.bib}
+
 \makeatletter
 	\def\beamer@framenotesbegin{% at beginning of slide
 		\usebeamercolor[fg]{normal text} 
@@ -59,3 +61,9 @@
 }
 
 \newsavebox{\mybox}
+
+\xpatchbibmacro{name:andothers}{%
+	\bibstring{andothers}%
+}{%
+	\bibstring[\emph]{andothers}%
+}{}{}

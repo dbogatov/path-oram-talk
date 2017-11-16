@@ -262,20 +262,20 @@
 	}
 \end{frame}
 
-\begin{frame}{Complexity}
-	
-	\begin{block}{Computation}
-		Client's computation is $\BigO{\log N} \cdot \omega (1)$ per data access. 
-		We treat the server as a network storage device, so it only needs to do the computation necessary to retrieve and store $\BigO{\log N}$ blocks per data access.
-	\end{block} 
+		\begin{frame}{Complexity}
+			
+			\begin{block}{Computation}
+				Client's computation is $\BigO{\log N} \cdot \omega (1)$ per data access. 
+				We treat the server as a network storage device, so it only needs to do the computation necessary to retrieve and store $\BigO{\log N}$ blocks per data access.
+			\end{block} 
 
-	\note{
-		Each access the client reads and writes the whole path, which is order of $\log N$ in size.
-		It re-encrypts each block, so the total complexity is $\BigO{\log N} \cdot \omega (1)$.
+			\note{
+				Each access the client reads and writes the whole path, which is order of $\log N$ in size.
+				It re-encrypts each block, so the total complexity is $\BigO{\log N} \cdot \omega (1)$.
 
-		Server, on the other hand, does not perform encryption, so its complexity is $\BigO{\log N}$.
-	}
-\end{frame}
+				Server, on the other hand, does not perform encryption, so its complexity is $\BigO{\log N}$.
+			}
+		\end{frame}
 
 %%% fragile frame
 \begin{frame}[fragile]{Full algorithm}
@@ -303,3 +303,25 @@
 
 \end{frame}
 %%% end fragile frame
+
+		\begin{frame}{Security analysis}
+			
+			\begin{gather*}
+				\bm{p} = \left( \text{position}_M [a_M], \text{position}_{M-1} [a_{M-1}], \ldots , \text{position}_1 [a_1] \right) \\
+				\Pr [ \bm{p} ] = \left( \frac{1}{2^L} \right)^M
+			\end{gather*}
+
+			\begin{itemize}
+				\item 
+					The sequence of encrypted paths is computationally indistinguishable from a random sequence of bit strings
+				\item 
+					$A(\vec{y})$ is computationally indistinguishable from a random sequence of bit strings
+			\end{itemize}
+
+			\note{
+				Our definition of security requires that the access pattern is indistinguishable from random.
+				Encrypted paths look random enough by the definition of security --- and we use randomized encryption since deterministic one does not even satisfy chosen plaintext attack security.
+				The access pattern is random enough since the probability of a particular access is $\frac{1}{2^L}$ --- uniform in the number of blocks because each access the position table is re-randomized.
+				For $M$ access, the probability is even smaller by the Bayes rule.
+			}
+		\end{frame}

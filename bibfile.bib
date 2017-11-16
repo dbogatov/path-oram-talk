@@ -62,15 +62,25 @@
     URL = {http://www2.eecs.berkeley.edu/Pubs/TechRpts/2014/EECS-2014-89.html},
     Number = {UCB/EECS-2014-89},
     Abstract = {
-		Confidentiality of data is a major problem as sensitive computations migrate to the cloud. Employees in a data center have physical access to machines and can carry out attacks that have traditionally only affected client-side crypto-devices such as smartcards. For example, an employee can snoop confidential data as it moves in and out of the processor to learn secret keys or other program information that can be used for targeted attacks.
+		Confidentiality of data is a major problem as sensitive computations migrate to the cloud. 
+		Employees in a data center have physical access to machines and can carry out attacks that have traditionally only affected client-side crypto-devices such as smartcards. 
+		For example, an employee can snoop confidential data as it moves in and out of the processor to learn secret keys or other program information that can be used for targeted attacks.
 
-		Secure processors have been proposed as a counter-measure to these attacks -- such processors are physically shielded and enforce confidentiality by encrypting all data outside the chip, e.g. in DRAM or non-volatile storage. While first proposals were academic in nature, this model is now starting to appear commercially, such as in the Intel SGX extensions.
+		Secure processors have been proposed as a counter-measure to these attacks --- such processors are physically shielded and enforce confidentiality by encrypting all data outside the chip, e.g. in DRAM or non-volatile storage. 
+		While first proposals were academic in nature, this model is now starting to appear commercially, such as in the Intel SGX extensions.
 
-		Although secure processors encrypt all data as it leaves the CPU, the memory addresses that are being accessed in DRAM are still transmitted in plaintext on the address bus. This represents an important source of information leakage that enables serious attacks that can, in the worst case, leak bits of cryptographic keys. To counter such attacks, we introduce PHANTOM, a new secure processor that obfuscates its memory access trace. To an adversary who can observe the processor's output pins, all memory access traces are computationally indistinguishable (a property known as obliviousness). We achieve obliviousness through a cryptographic construct known as Oblivious RAM (ORAM).
+		Although secure processors encrypt all data as it leaves the CPU, the memory addresses that are being accessed in DRAM are still transmitted in plaintext on the address bus. 
+		This represents an important source of information leakage that enables serious attacks that can, in the worst case, leak bits of cryptographic keys. 
+		To counter such attacks, we introduce PHANTOM, a new secure processor that obfuscates its memory access trace. 
+		To an adversary who can observe the processor's output pins, all memory access traces are computationally indistinguishable (a property known as obliviousness). 
+		We achieve obliviousness through a cryptographic construct known as Oblivious RAM (ORAM).
 
-		Existing ORAM algorithms introduce a large (100-200x) overhead in the amount of data moved from memory, which makes ORAM inefficient on real-world workloads. To tackle this problem, we develop a highly parallel ORAM memory controller to reduce ORAM memory access latency and demonstrate the design as part of the PHANTOM secure processor, implemented on a Convey HC-2ex. The HC-2ex is a system that comprises an off-the-shelf x86 CPU paired with 4 high-end FPGAs with a highly parallel memory system.
+		Existing ORAM algorithms introduce a large (100-200x) overhead in the amount of data moved from memory, which makes ORAM inefficient on real-world workloads. 
+		To tackle this problem, we develop a highly parallel ORAM memory controller to reduce ORAM memory access latency and demonstrate the design as part of the PHANTOM secure processor, implemented on a Convey HC-2ex.
+		 The HC-2ex is a system that comprises an off-the-shelf x86 CPU paired with 4 high-end FPGAs with a highly parallel memory system.
 
-		Our novel ORAM controller aggressively exploits the HC-2ex's high DRAM bank parallelism to reduce ORAM access latency and scales well to a large number of memory channels. PHANTOM is efficient in both area and performance: accessing 4KB of data from a 1GB ORAM takes 26.2us (13.5us until the data is available), a 32x slowdown over accessing 4KB from regular memory, while SQLite queries on a population database see 1.2-6x slowdown.
+		Our novel ORAM controller aggressively exploits the HC-2ex's high DRAM bank parallelism to reduce ORAM access latency and scales well to a large number of memory channels. 
+		PHANTOM is efficient in both area and performance: accessing 4KB of data from a 1GB ORAM takes 26.2us (13.5us until the data is available), a 32x slowdown over accessing 4KB from regular memory, while SQLite queries on a population database see 1.2-6x slowdown.
 	}
 }
 
@@ -126,3 +136,68 @@
 	publisher = {ACM},
 	address = {New York, NY, USA},
 } 
+
+@inbook{Shi:2011,
+	author = {Shi, Elaine and Chan, T. -H. Hubert and Stefanov, Emil and Li, Mingfei},
+	title = {Oblivious RAM with ${O}( \log^3 {N} )$ Worst-Case Cost},
+	bookTitle = {Advances in Cryptology -- ASIACRYPT 2011: 17th International Conference on the Theory and Application of Cryptology and Information Security, Seoul, South Korea, December 4-8, 2011. Proceedings},
+	year = {2011},
+	publisher = {Springer Berlin Heidelberg},
+	address = {Berlin, Heidelberg},
+	pages = {197--214},
+	abstract = {
+		Oblivious RAM is a useful primitive that allows a client to hide its data access patterns from an untrusted server in storage outsourcing applications. 
+		Until recently, most prior works on Oblivious RAM aim to optimize its amortized cost, while suffering from linear or even higher worst-case cost. 
+		Such poor worst-case behavior renders these schemes impractical in realistic settings, since a data access request can occasionally be blocked waiting for an unreasonably large number of operations to complete.
+	},
+	isbn = {978-3-642-25385-0},
+	doi = {10.1007/978-3-642-25385-0_11},
+	url = {https://doi.org/10.1007/978-3-642-25385-0_11}
+}
+
+@article{DBLP:journals/corr/abs-1106-3652,
+	author = {Emil Stefanov and Elaine Shi and Dawn Song},
+	title = {Towards Practical Oblivious {RAM}},
+	journal = {CoRR},
+	volume = {abs/1106.3652},
+	year = {2011},
+	url = {http://arxiv.org/abs/1106.3652},
+	archivePrefix = {arXiv},
+	eprint = {1106.3652},
+	pages = {1--40},
+	timestamp = {Wed, 07 Jun 2017 14:40:50 +0200},
+	biburl = {http://dblp.org/rec/bib/journals/corr/abs-1106-3652},
+	bibsource = {dblp computer science bibliography, http://dblp.org}
+}
+
+@inbook{Gentry:2013,
+	author = {Gentry, Craig and Goldman, Kenny A. and Halevi, Shai and Julta, Charanjit and Raykova, Mariana and Wichs, Daniel},
+	title = {Optimizing ORAM and Using It Efficiently for Secure Computation},
+	bookTitle = {Privacy Enhancing Technologies: 13th International Symposium, PETS 2013, Bloomington, IN, USA, July 10-12, 2013. Proceedings},
+	year = {2013},
+	publisher = {Springer Berlin Heidelberg},
+	address = {Berlin, Heidelberg},
+	pages = {1--18},
+	abstract = {
+		Oblivious RAM (ORAM) allows a client to access her data on a remote server while hiding the access pattern (which locations she is accessing) from the server. 
+		Beyond its immediate utility in allowing private computation over a client's outsourced data, ORAM also allows mutually distrustful parties to run secure-computations over their joint data with sublinear on-line complexity. 
+		In this work we revisit the tree-based ORAM of Shi et al. and show how to optimize its performance as a stand-alone scheme, as well as its performance within higher level constructions.
+	},
+	isbn = {978-3-642-39077-7},
+	doi = {10.1007/978-3-642-39077-7_1},
+	url = {https://doi.org/10.1007/978-3-642-39077-7_1}
+}
+
+@article{DBLP:journals/corr/abs-1105-4125,
+	author = {Michael T. Goodrich and Michael Mitzenmacher and Olga Ohrimenko and Roberto Tamassia},
+	title = {Privacy-Preserving Group Data Access via Stateless Oblivious {RAM}	Simulation},
+	journal = {CoRR},
+	volume = {abs/1105.4125},
+	year = {2011},
+	url = {http://arxiv.org/abs/1105.4125},
+	archivePrefix = {arXiv},
+	eprint = {1105.4125},
+	timestamp = {Wed, 07 Jun 2017 14:41:08 +0200},
+	biburl = {http://dblp.org/rec/bib/journals/corr/abs-1105-4125},
+	bibsource = {dblp computer science bibliography, http://dblp.org}
+}

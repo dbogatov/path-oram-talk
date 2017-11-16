@@ -7,5 +7,6 @@ dist/
 *.idx
 *.out
 *.xdy
+*.vrb
 
 .vscode/cspell.json
