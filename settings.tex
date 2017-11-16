@@ -37,14 +37,6 @@
 	}
 \makeatother
 
-
-\newcommand{\BigO}[1]{\mathcal{O}\left(#1\right)}
-\newcommand{\BigOmega}[1]{\Omega\left(#1\right)}
-\newcommand{\RAM}{\textbf{RAM}}
-
-\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
-
 \lstset{
 	mathescape=true,
 	numbers=left,
@@ -60,22 +52,19 @@
 	escapechar=|
 }
 
-\newsavebox{\mybox}
-
-\xpatchbibmacro{name:andothers}{%
-	\bibstring{andothers}%
-}{%
-	\bibstring[\emph]{andothers}%
-}{}{}
-
-\ifrelease%
-	\newsavebox\watermark%
-	\savebox\watermark{\tikz[color=gray,opacity=0.02]\node{\begin{tabular}{c} Dmytro Bogatov \\ BU Class of 2023 \end{tabular}};}
-	\newwatermark*[
-		allpages,
-		angle=0,
-		scale=3,
-		xpos=0,
-		ypos=-25
-	]{\usebox\watermark}
-\fi
+\hypersetup{
+	pdfcopyright={Copyright (C) Dmytro Bogatov \the\year. Creative Commons Attribution-NoDerivatives 4.0 International.},
+	pdflicenseurl={https://creativecommons.org/licenses/by-nd/4.0/legalcode},
+	pdfauthor={Dmytro Bogatov},
+	pdftitle={Data-X Talk},
+	pdfsubject={Path ORAM:\ An Extremely Simple Oblivious RAM Protocol},
+	pdfkeywords={Data-X, Talk, ORAM, PathORAM, Oblivious, Security, Kollios, BU, PhD, homework},
+	colorlinks=true,
+	linkcolor=magenta,
+	urlcolor=cyan,
+	citecolor=blue,
+	pdfpagemode=FullScreen,
+	pdfdisplaydoctitle=true,
+	pdfmenubar=false,
+	pdfpagelayout=SinglePage
+}

@@ -1,0 +1,28 @@
+% cSpell:disable
+
+\newcommand{\BigO}[1]{\mathcal{O}\left(#1\right)}
+\newcommand{\BigOmega}[1]{\Omega\left(#1\right)}
+\newcommand{\RAM}{\textbf{RAM}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newsavebox{\mybox}
+
+\xpatchbibmacro{name:andothers}{%
+	\bibstring{andothers}%
+}{%
+	\bibstring[\emph]{andothers}%
+}{}{}
+
+\ifrelease%
+	\newsavebox\watermark%
+	\savebox\watermark{\tikz[color=gray,opacity=0.02]\node{\begin{tabular}{c} Dmytro Bogatov \\ BU Class of 2023 \end{tabular}};}
+	\newwatermark*[
+		allpages,
+		angle=0,
+		scale=3,
+		xpos=0,
+		ypos=-25
+	]{\usebox\watermark}
+\fi

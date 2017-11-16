@@ -74,7 +74,7 @@ log "DEBUG = ${DEBUG}"
 
 echo "Cleaning up workspace"
 
-rm -f ${OUTDIR}/${JOBNAME}.{pdf,aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb}
+rm -f ${OUTDIR}/${JOBNAME}.*
 mkdir -p ${OUTDIR}
 
 log "Done."
@@ -107,7 +107,7 @@ log "Done."
 
 echo "Removing build files..."
 
-rm -f ${OUTDIR}/*.{aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb}
+rm -f ${OUTDIR}/*.{aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb,bcf,xml}
 
 log "Done."
 
