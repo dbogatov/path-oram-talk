@@ -1,0 +1,235 @@
+\input{example/definitions}
+
+\section{Example}
+
+	\begin{frame}{Initial state}
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Initial underlying tree}
+		\end{figure}
+
+		\vspace{-12pt}
+
+		\begin{figure}
+			\centering
+
+			\input{example/initial-map}
+			\caption{Initial position map}
+		\end{figure}	
+		
+	\end{frame}
+
+	\begin{frame}{\textsc{Access}$(5)$}
+		
+		\selectedtrue
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Select block with ID 5}
+		\end{figure}		
+
+		\vspace{-12pt}
+
+		\begin{figure}
+			\centering
+
+			\input{example/initial-map}
+			\caption{Find leaf for block with ID 5}
+		\end{figure}	
+		
+	\end{frame}
+
+	\begin{frame}{Read path}
+		
+		\selectedtrue
+		\pathreadtrue
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Select path $\mathcal{P}(6)$}
+		\end{figure}		
+
+		\vspace{-12pt}
+
+		\begin{figure}
+			\centering
+
+			\input{example/initial-map}
+			\caption{Find leaf for block with ID 5}
+		\end{figure}	
+		
+	\end{frame}
+
+	\begin{frame}{Remap block}
+		
+		\begin{block}{Stash}
+
+			\begin{gather*}
+				S = \{ 10, 1, 2, \textcolor{red}{5}, 8, 7, 13, 15 \} \\
+				data = \textsc{DecryptBlock}(\textcolor{red}{5}) \\
+				\textcolor{blue}{5^\prime} \gets \textsc{EncryptData}(data^{\mbox{*}}) \\
+				S = \{ 10, 1, 2, \textcolor{blue}{5^\prime}, 8, 7, 13, 15 \}
+			\end{gather*}
+
+		\end{block}
+
+		\begin{block}{Remap}
+			
+			Assign random leaf
+
+			\[
+				\text{position}[5] := 3
+			\]
+
+		\end{block}
+		
+	\end{frame}
+
+	\begin{frame}{Write path back}
+		
+		\selectedtrue
+		\pathreadtrue
+
+		\nodeonenewtrue
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Write bucket on level $L = 3$}
+		\end{figure}
+
+		\vspace{-12pt}
+
+		\begin{block}{Stash}
+			
+			\begin{gather*}
+				S^\prime = \{ 8, 7, 1 \} \\
+				S = \{ 10, 2, \textcolor{blue}{5}, 13, 15 \}
+			\end{gather*}
+
+		\end{block}
+		
+	\end{frame}
+
+	\begin{frame}{Write path back}
+
+		\selectedtrue
+		\pathreadtrue
+
+		\nodeonenewtrue
+		\nodetwonewtrue
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Write bucket on level $L - 1 = 2$}
+		\end{figure}
+
+		\vspace{-12pt}
+
+		\begin{block}{Stash}
+			
+			\begin{gather*}
+				S^\prime = \{ 2, 10, 15 \} \\
+				S = \{ \textcolor{blue}{5}, 13 \}
+			\end{gather*}
+
+		\end{block}
+		
+	\end{frame}
+
+	\begin{frame}{Write path back}
+
+		\selectedtrue
+		\pathreadtrue
+
+		\nodeonenewtrue
+		\nodetwonewtrue
+		\nodethreenewtrue
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Write bucket on level $L - 2 = 1$}
+		\end{figure}
+		
+		\vspace{-12pt}
+
+		\begin{block}{Stash}
+			
+			\begin{gather*}
+				S^\prime = \{ 13 \} \\
+				S = \{ \textcolor{blue}{5} \}
+			\end{gather*}
+
+		\end{block}
+
+	\end{frame}
+
+	\begin{frame}{Write path back}
+
+		\selectedtrue
+		\pathreadtrue
+
+		\nodeonenewtrue
+		\nodetwonewtrue
+		\nodethreenewtrue
+		\nodefournewtrue
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Write bucket on level $0$}
+		\end{figure}
+		
+		\vspace{-12pt}
+
+		\begin{block}{Stash}
+			
+			\begin{gather*}
+				S^\prime = \{ \textcolor{blue}{5} \} \\
+				S = \varnothing
+			\end{gather*}
+
+		\end{block}
+
+	\end{frame}
+
+	\begin{frame}{Final state}
+
+		\selectedtrue
+		\pathreadtrue
+
+		\nodeonenewtrue
+		\nodetwonewtrue
+		\nodethreenewtrue
+		\nodefournewtrue
+
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{Tree after the execution}
+		\end{figure}
+
+		\vspace{-12pt}
+		
+		\begin{figure}
+			\centering
+
+			\input{example/final-map}
+			\caption{Position map after the execution}
+		\end{figure}
+		
+	\end{frame}
