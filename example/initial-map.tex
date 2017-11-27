@@ -1,29 +1,31 @@
-\newcommand
+% cSpell:ignore ifpathread ifselected textcolor
+
+\newcommand%
 	{\blockFive}
 	{
-		\ifselected
+		\ifselected%
 			\textcolor{red}{$5$}
-		\else
+		\else%
 			$5$
-		\fi
+		\fi%
 	}
 
-\newcommand
+\newcommand%
 	{\leafSix}
 	{
-		\ifselected
+		\ifselected%
 			\textcolor{red}{$6$}
-		\else
+		\else%
 			$6$
-		\fi
+		\fi%
 	}
 
 \begin{tabular}{ l | *{9}{c} } % chktex 44
 
-	Block ID	& 1	& 2	& 3	& 4	& \blockFive	& 6	& $\ldots$	& 37	\\
+	Block ID	& 1	& 2	& 3	& 4	& \blockFive & 6	& $\ldots$	& 37	\\  % chktex 1
 
 	\midrule%
 
-	Leaf ID		& 6	& 5	& 5	& 1	& \leafSix		& 5	& $\ldots$	& 7		\\
+	Leaf ID		& 6	& 5	& 5	& 1	& \leafSix		& 5	& $\ldots$	& 7		\\ % chktex 1
 
 \end{tabular}

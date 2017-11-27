@@ -1,67 +1,69 @@
-\newcommand
+% cSpell:ignore ifpathread ifselected textcolor ifnodeonenew ifnodetwonew ifnodethreenew ifnodefournew
+
+\newcommand%
 	{\blockFive}
 	{
-		\ifselected
+		\ifselected%
 			\textcolor{red}{$5$}
-		\else
+		\else%
 			$5$
-		\fi
+		\fi%
 	}
 
-\newcommand
+\newcommand%
 	{\leafSix}
 	{
-		\ifselected
+		\ifselected%
 			\textcolor{red}{$6$}
-		\else
+		\else%
 			$6$
-		\fi
+		\fi%
 	}
 
-\ifpathread
+\ifpathread%
 	\newcommand{\selectedNode}{blue}
-\else
+\else%
 	\newcommand{\selectedNode}{black}
-\fi
+\fi%
 
-\newcommand
+\newcommand%
 	{\nodeLevelOne}
 	{
-		\ifnodeonenew
+		\ifnodeonenew%
 			\oramNode[\textcolor{blue}{$8$}][\textcolor{blue}{$7$}][\textcolor{blue}{$1$}]
-		\else
+		\else%
 			\oramNode[$7$][$13$][$15$]
-		\fi
+		\fi%
 	}
 
-\newcommand
+\newcommand%
 	{\nodeLevelTwo}
 	{
-		\ifnodetwonew
+		\ifnodetwonew%
 			\oramNode[\textcolor{blue}{$2$}][\textcolor{blue}{$10$}][\textcolor{blue}{$15$}]
-		\else
+		\else%
 			\oramNode[$2$][\blockFive][$8$]
-		\fi
+		\fi%
 	}
 
-\newcommand
+\newcommand%
 	{\nodeLevelThree}
 	{
-		\ifnodethreenew
+		\ifnodethreenew%
 			\oramNode[\textcolor{blue}{$13$}]
-		\else
+		\else%
 			\oramNode[$10$][$1$]
-		\fi
+		\fi%
 	}
 
-\newcommand
+\newcommand%
 	{\nodeLevelFour}
 	{
-		\ifnodefournew
+		\ifnodefournew%
 			\oramNode[\textcolor{blue}{$5^\prime$}]
-		\else
-			\oramNode
-		\fi
+		\else%
+			\oramNode%
+		\fi%
 	}
 
 \begin{tikzpicture}[scale=0.8]
