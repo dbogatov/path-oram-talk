@@ -9,7 +9,10 @@
 		PathORAM can be used to perform search on an oblivious binary search tree, using $\BigO{\log^2 N}$ bandwidth.~\cite{Gentry:2013}
 
 		\note{
-			TODO
+			Underlying data structure for PathORAM is an oblivious binary tree.
+			One \textsc{Access} for the ORAM is equivalent to binary tree search.
+			This way, without re-randomization and write back subroutine, PathORAM \textsc{Access} is the same as binary search.
+			Thus, the bandwidth is $\BigO{\log^2 N}$.
 		}
 	\end{frame}
 

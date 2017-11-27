@@ -7,7 +7,7 @@
 			\begin{itemize}
 				\item 
 					PathORAM uses a binary tree with height $L = \ceil*{\log_2 N} - 1$.
-					% TODO: why?
+					It is empirically proven to be sufficient and efficient.
 				\item
 					\emph{Stash occupancy} is the number of overflowing blocks.
 					Represents client's \emph{persistent} local storage.
@@ -57,13 +57,14 @@
 		\end{block}
 			
 		\note{
-			Some of the key observations made after simulation.
 
 			Required stash size grows linearly with the security parameter, which is consistent with the theorem that failure probability decreases exponentially with the stash size.
-
+			There are two ways to attack our ORAM --- break encryption and trigger stash overflow.
+			Authors give approximate values for stash size such that the probability of stash overflow is no greater than the probability of encryption break.
+			
 			This linearity was used to predict required stash size for realistic security parameters.
-			Note that it is by definition infeasible to simulate for practically adopted security parameters, since if we can simulate a failure in any reasonable amount of time with such values, they would not be considered secure.
-
+			Note that it is by definition infeasible to simulate for practically adopted security parameters, since that would have proven insecurity.
+			
 			Finally, it is discovered that required stash size does not depend on $N$, which proves that PathORAM is highly scalable.
 		}
 		
@@ -77,7 +78,6 @@
 				\item 
 					For $Z \ge 5$, the usage of a subtree is close to the number of buckets in it.
 					Also holds for $Z = 4$.
-					% TODO why?
 				\item 
 					For the levels close to the root, the bucket load is indeed 1 block.
 				\item 
@@ -92,6 +92,7 @@
 			Another set of observations about bucket load.
 			
 			For $Z \in \{ 4, 5 \}$, the usage of a subtree is close to the number of buckets in it.
+			This means, we do not waste space with dummy blocks.
 
 			For the levels close to the root, the bucket load is 1 block.
 
