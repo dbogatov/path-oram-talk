@@ -1,1 +1,104 @@
 \section{Evaluation}
+
+	\begin{frame}{Stash Occupancy Distribution}
+		
+		\begin{block}{Experiment setup}
+			
+			\begin{itemize}
+				\item 
+					PathORAM uses a binary tree with height $L = \ceil*{\log_2 N} - 1$.
+					% TODO: why?
+				\item
+					\emph{Stash occupancy} is the number of overflowing blocks.
+					Represents client's \emph{persistent} local storage.
+				\item
+					First load $N$ blocks into ORAM and then access each block in a round-robin pattern.
+					Worst-case access pattern in terms of stash occupancy.
+				\item 
+					Single run for about 250 billion accesses after doing 1 billion accesses for warming-up.
+			\end{itemize}
+			
+		\end{block}
+			
+		\note{
+			In the experiments, authors used a binary tree of height $\ceil*{\log_2 N} - 1$.
+
+			Let us define \emph{stash occupancy} is the number of overflowing blocks.
+			Thus, this would be a client's persistent local storage in addition to $Z \log_2 N$ transient storage for storing single path.
+
+			We access PathORAM in a round-robin fashion --- it is proven to be the worst-case scenario for PathORAM\@.
+			Round-robin fashion is like $\{ 1, 2, \ldots, N, 1, 2, \ldots, N, \ldots, 1, 2, \ldots \}$.
+
+			Finally, they perform around billion accesses for warming-up, then 250 billion accesses for actual experiment.
+		}
+		
+	\end{frame}
+
+	\begin{frame}{Stash Occupancy Distribution}
+		
+		\begin{block}{Results}
+			
+			\begin{itemize}
+				\item 
+					Required stash size grows linearly with the security parameter.
+					Failure probability decreases exponentially with the stash size.
+					See appendix.
+				\item 
+					Extrapolate those results for realistic values of $\lambda$.
+					See appendix.
+				\item 
+					It is by definition infeasible to simulate for practically adopted security parameters (e.g., $\lambda = 128$)
+				\item
+					Required stash size for a low failure probability does not depend on $N$.
+					This shows PathORAM has good scalability.
+					See appendix.
+			\end{itemize}
+			
+		\end{block}
+			
+		\note{
+			Some of the key observations made after simulation.
+
+			Required stash size grows linearly with the security parameter, which is consistent with the theorem that failure probability decreases exponentially with the stash size.
+
+			This linearity was used to predict required stash size for realistic security parameters.
+			Note that it is by definition infeasible to simulate for practically adopted security parameters, since if we can simulate a failure in any reasonable amount of time with such values, they would not be considered secure.
+
+			Finally, it is discovered that required stash size does not depend on $N$, which proves that PathORAM is highly scalable.
+		}
+		
+	\end{frame}
+
+	\begin{frame}{Bucket Load}
+		
+		\begin{block}{Results}
+			
+			\begin{itemize}
+				\item 
+					For $Z \ge 5$, the usage of a subtree is close to the number of buckets in it.
+					Also holds for $Z = 4$.
+					% TODO why?
+				\item 
+					For the levels close to the root, the bucket load is indeed 1 block.
+				\item 
+					Leaves have slightly heavier loads as blocks accumulate at the leaves of the tree.
+				\item
+					$Z = 3$, however, exhibits a different distribution of bucket load and produces much larger stash sizes in practice.
+			\end{itemize}
+			
+		\end{block}
+			
+		\note{
+			Another set of observations about bucket load.
+			
+			For $Z \in \{ 4, 5 \}$, the usage of a subtree is close to the number of buckets in it.
+
+			For the levels close to the root, the bucket load is 1 block.
+
+			Leaves have slightly heavier loads as blocks accumulate at the leaves of the tree.
+
+			$Z = 3$ is different.
+			It produces much larger stash sizes in practice, so should not be used in production.
+		}
+		
+	\end{frame}
