@@ -4,234 +4,198 @@
 
 \section{Example}
 
-	\begin{frame}{Initial state}
+	\exampleFrame%
+		{Initial state}
+		{}
+		{\drawTree{Initial underlying tree}}
+		{\drawMap{Initial position map}}
+		{
+			Here we see the initial state before we access an element.
+			Buckets are filled greedily from bottom to the top.
+			Leaves are numbered left to right.
+			Each number in the buckets corresponds to encrypted data block and each empty set symbol corresponds to dummy data block.
+			Position table shows the mapping from data blocks to leaves.
+		}
 
-		\begin{figure}
-			\centering
+	\exampleFrame%
+		{\textsc{Access}$(5)$}
+		{\selectedtrue}
+		{\drawTree{Select block with ID 5}}
+		{\drawMap{Find leaf for block with ID 5}}
+		{
+			Let us access the data block with ID 5.
+			We first lookup position map to see, which leaf it corresponds to.
+			We see we need a path to the leaf number 6.
+		}
+	
+	\exampleFrame%
+		{Read path}
+		{
+			\selectedtrue%
+			\pathreadtrue%
+		}
+		{\drawTree{Select path $\mathcal{P}(6)$}}
+		{\drawMap{Find leaf for block with ID 5}}
+		{
+			We read the whole path from the root to the leaf number 6.
+		}
 
-			\input{example/tree}
-			\caption{Initial underlying tree}
-		\end{figure}
+	\exampleFrame%
+		{Remap block}
+		{}
+		{
+			\begin{block}{Stash}
+				
+				\begin{gather*}
+					S = \{ 10, 1, 2, \textcolor{red}{5}, 8, 7, 13, 15 \} \\
+					data = \textsc{DecryptBlock}(\textcolor{red}{5}) \\
+					\textcolor{blue}{5^\prime} \gets \textsc{EncryptData}(data^{\mbox{*}}) \\
+					S = \{ 10, 1, 2, \textcolor{blue}{5^\prime}, 8, 7, 13, 15 \}
+				\end{gather*}
 
-		\vspace{-12pt}
+				Re-encrypt all blocks in the stash.
+	
+			\end{block}
+		}
+		{
+			\begin{block}{Remap}
+				
+				Assign random leaf
+	
+				\[
+					\text{position}[5] := 3
+				\]
+	
+			\end{block}
+		}
+		{
+			Now all those data blocks appear in stash.
+			We now for a fact that our block of interest is there as well.
+			We extract it to data variable.
+			We change block's data and re-encrypt all data blocks.
+			We then put it back to stash.
 
-		\begin{figure}
-			\centering
+			It is important that we also re-map the block.
+			Let say we assign it new leaf --- number 3.
 
-			\input{example/initial-map}
-			\caption{Initial position map}
-		\end{figure}	
-		
-	\end{frame}
+			Now we need to write path back.
+		}
 
-	\begin{frame}{\textsc{Access}$(5)$}
-		
-		\selectedtrue%
+	\exampleFrame%
+		{Write path back}
+		{
+			\selectedtrue%
+			\pathreadtrue%
+			\nodeonenewtrue%
+		}
+		{\drawTree{Write bucket on level $L = 3$}}
+		{
+			\begin{block}{Stash}
+				
+				\begin{gather*}
+					S^\prime = \{ 8, 7, 1 \} \\
+					S = \{ 10, 2, \textcolor{blue}{5}, 13, 15 \}
+				\end{gather*}
+	
+			\end{block}
+		}
+		{
+			We start filling buckets with data blocks greedily from leaves.
+			We pick those $Z = 3$ blocks from stash which can be placed on the level in path not breaking invariant.
+			If fewer than $Z$ blocks can be placed, we pad it with dummy blocks.
+		}	
 
-		\begin{figure}
-			\centering
+	\exampleFrame%
+		{Write path back}
+		{
+			\selectedtrue%
+			\pathreadtrue%
+			\nodeonenewtrue%
+			\nodetwonewtrue%
+		}
+		{\drawTree{Write bucket on level $L - 1 = 2$}}
+		{
+			\begin{block}{Stash}
+				
+				\begin{gather*}
+					S^\prime = \{ 2, 10, 15 \} \\
+					S = \{ \textcolor{blue}{5}, 13 \}
+				\end{gather*}
+	
+			\end{block}
+		}
+		{
+			We repeat the process for the next level.
+		}	
 
-			\input{example/tree}
-			\caption{Select block with ID 5}
-		\end{figure}		
+	\exampleFrame%
+		{Write path back}
+		{
+			\selectedtrue%
+			\pathreadtrue%
+			\nodeonenewtrue%
+			\nodetwonewtrue%
+			\nodethreenewtrue%
+		}
+		{\drawTree{Write bucket on level $L - 2 = 1$}}
+		{
+			\begin{block}{Stash}
+				
+				\begin{gather*}
+					S^\prime = \{ 13 \} \\
+					S = \{ \textcolor{blue}{5} \}
+				\end{gather*}
+	
+			\end{block}
+		}
+		{
+			Now, only one data block can be placed not breaking the invariant, so we pad.
+		}	
 
-		\vspace{-12pt}
+	\exampleFrame%
+		{Write path back}
+		{
+			\selectedtrue%
+			\pathreadtrue%
+			\nodeonenewtrue%
+			\nodetwonewtrue%
+			\nodethreenewtrue%
+			\nodefournewtrue%
+		}
+		{\drawTree{Write bucket on level $L - 3 = 0$ --- root}}
+		{
+			\begin{block}{Stash}
+				
+				\begin{gather*}
+					S^\prime = \{ \textcolor{blue}{5} \} \\
+					S = \varnothing
+				\end{gather*}
+	
+			\end{block}
+		}
+		{
+			Finally, we put last block in the root, because it is the only place along the path where $\mathcal{P}(6)$ and $\mathcal{P}(3)$ intersect.
+		}
+	
+	\exampleFrame%
+		{Final state}
+		{
+			\selectedtrue%
+			\pathreadtrue%
+			\nodeonenewtrue%
+			\nodetwonewtrue%
+			\nodethreenewtrue%
+			\nodefournewtrue%
+		}
+		{\drawTree{Tree after the execution}}
+		{\drawMap[final]{Position map after the execution}}
+		{
+			That is how our tree looks like after the operation.
 
-		\begin{figure}
-			\centering
+			Please note that the adversary only sees that we have read whole path and written whole path.
+			She is not able to see which data block was modified because we re-encrypted everything.
 
-			\input{example/initial-map}
-			\caption{Find leaf for block with ID 5}
-		\end{figure}	
-		
-	\end{frame}
-
-	\begin{frame}{Read path}
-		
-		\selectedtrue%
-		\pathreadtrue%
-
-		\begin{figure}
-			\centering
-
-			\input{example/tree}
-			\caption{Select path $\mathcal{P}(6)$}
-		\end{figure}		
-
-		\vspace{-12pt}
-
-		\begin{figure}
-			\centering
-
-			\input{example/initial-map}
-			\caption{Find leaf for block with ID 5}
-		\end{figure}	
-		
-	\end{frame}
-
-	\begin{frame}{Remap block}
-		
-		\begin{block}{Stash}
-
-			\begin{gather*}
-				S = \{ 10, 1, 2, \textcolor{red}{5}, 8, 7, 13, 15 \} \\
-				data = \textsc{DecryptBlock}(\textcolor{red}{5}) \\
-				\textcolor{blue}{5^\prime} \gets \textsc{EncryptData}(data^{\mbox{*}}) \\
-				S = \{ 10, 1, 2, \textcolor{blue}{5^\prime}, 8, 7, 13, 15 \}
-			\end{gather*}
-
-		\end{block}
-
-		\begin{block}{Remap}
-			
-			Assign random leaf
-
-			\[
-				\text{position}[5] := 3
-			\]
-
-		\end{block}
-		
-	\end{frame}
-
-	\begin{frame}{Write path back}
-		
-		\selectedtrue%
-		\pathreadtrue%
-
-		\nodeonenewtrue%
-
-		\begin{figure}
-			\centering
-
-			\input{example/tree}
-			\caption{Write bucket on level $L = 3$}
-		\end{figure}
-
-		\vspace{-12pt}
-
-		\begin{block}{Stash}
-			
-			\begin{gather*}
-				S^\prime = \{ 8, 7, 1 \} \\
-				S = \{ 10, 2, \textcolor{blue}{5}, 13, 15 \}
-			\end{gather*}
-
-		\end{block}
-		
-	\end{frame}
-
-	\begin{frame}{Write path back}
-
-		\selectedtrue%
-		\pathreadtrue%
-
-		\nodeonenewtrue%
-		\nodetwonewtrue%
-
-		\begin{figure}
-			\centering
-
-			\input{example/tree}
-			\caption{Write bucket on level $L - 1 = 2$}
-		\end{figure}
-
-		\vspace{-12pt}
-
-		\begin{block}{Stash}
-			
-			\begin{gather*}
-				S^\prime = \{ 2, 10, 15 \} \\
-				S = \{ \textcolor{blue}{5}, 13 \}
-			\end{gather*}
-
-		\end{block}
-		
-	\end{frame}
-
-	\begin{frame}{Write path back}
-
-		\selectedtrue%
-		\pathreadtrue%
-
-		\nodeonenewtrue%
-		\nodetwonewtrue%
-		\nodethreenewtrue%
-
-		\begin{figure}
-			\centering
-
-			\input{example/tree}
-			\caption{Write bucket on level $L - 2 = 1$}
-		\end{figure}
-		
-		\vspace{-12pt}
-
-		\begin{block}{Stash}
-			
-			\begin{gather*}
-				S^\prime = \{ 13 \} \\
-				S = \{ \textcolor{blue}{5} \}
-			\end{gather*}
-
-		\end{block}
-
-	\end{frame}
-
-	\begin{frame}{Write path back}
-
-		\selectedtrue%
-		\pathreadtrue%
-
-		\nodeonenewtrue%
-		\nodetwonewtrue%
-		\nodethreenewtrue%
-		\nodefournewtrue%
-
-		\begin{figure}
-			\centering
-
-			\input{example/tree}
-			\caption{Write bucket on level $0$}
-		\end{figure}
-		
-		\vspace{-12pt}
-
-		\begin{block}{Stash}
-			
-			\begin{gather*}
-				S^\prime = \{ \textcolor{blue}{5} \} \\
-				S = \varnothing
-			\end{gather*}
-
-		\end{block}
-
-	\end{frame}
-
-	\begin{frame}{Final state}
-
-		\selectedtrue%
-		\pathreadtrue%
-
-		\nodeonenewtrue%
-		\nodetwonewtrue%
-		\nodethreenewtrue%
-		\nodefournewtrue%
-
-		\begin{figure}
-			\centering
-
-			\input{example/tree}
-			\caption{Tree after the execution}
-		\end{figure}
-
-		\vspace{-12pt}
-		
-		\begin{figure}
-			\centering
-
-			\input{example/final-map}
-			\caption{Position map after the execution}
-		\end{figure}
-		
-	\end{frame}
+			Keep in mind that it is possible that stash is not empty at the end of operation.
+			It is unlikely to happen.
+			The stash is emptied during the next accesses.
+		}

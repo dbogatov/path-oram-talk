@@ -12,3 +12,63 @@
 \newif\ifnodetwonew%
 \newif\ifnodethreenew%
 \newif\ifnodefournew%
+
+%
+% 1 - caption
+%
+\newcommand%
+	{\drawTree}
+	[1]
+	{
+		\begin{figure}
+			\centering
+
+			\input{example/tree}
+			\caption{#1}
+		\end{figure}
+	}
+
+%
+% 1-  map - default initial
+% 2 - caption
+%
+\newcommand%
+	{\drawMap}
+	[2]
+	[initial]
+	{
+		\begin{figure}
+			\centering
+
+			\input{example/#1-map}
+			\caption{#2}
+		\end{figure}
+	}
+
+%
+% 1 - frame name
+% 2 - settings
+% 3 - upper block
+% 4 - lower block
+% 5 - notes
+%
+\newcommand%
+	{\exampleFrame}
+	[5]
+	{
+		\begin{frame}{#1}
+			
+			#2
+
+			#3
+	
+			\vspace{-12pt}
+	
+			#4
+
+			\note{
+				#5
+			}
+
+		\end{frame}
+	}
