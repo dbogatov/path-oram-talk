@@ -3,7 +3,7 @@ stages:
 - build
 
 chktex:
-  image: tianon/latex
+  image: dbogatov/docker-images:latex-latest
   stage: lint
   script:
   - chktex -eall -n22 -n46 -n30 -n3 -e16 -I0 -v2 -o chktex.out */**/*.tex *.tex || true
@@ -22,7 +22,7 @@ cspell:
   - docker
 
 bibfile:
-  image: tianon/latex
+  image: dbogatov/docker-images:latex-latest
   stage: lint
   script:
   - biber --tool -V bibfile.bib
