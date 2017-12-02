@@ -1,9 +1,6 @@
 % cSpell:disable
 
-\usetheme[
-	progressbar=frametitle,
-	titleformat section=smallcaps
-]{metropolis}
+\newfontfamily{\FA}[Path = fonts/]{FontAwesome.otf}
 
 \ifnotes%
 	\setbeameroption{show notes on second screen}
@@ -85,3 +82,34 @@
 	\usebeamercolor[fg]{alerted text}
 	\usebeamercolor[fg]{example text}
 }
+
+\usetikzlibrary{
+    shapes.geometric,
+    positioning,
+    fit,
+    calc
+}
+\tikzset{
+    dia/.style={
+        shape=diamond,
+        minimum size=2em,
+    },
+    dia cross/.style={
+        dia,
+%       path picture={
+%           \draw (path picture bounding box.west) -- (path picture bounding box.east)
+%                 (path picture bounding box.north) -- (path picture bounding box.south);
+%       },
+        append after command={
+            \pgfextra%
+                \draw[shorten >=\pgflinewidth,shorten <=\pgflinewidth]
+                                   (\tikzlastnode.west) -- (\tikzlastnode.east); % chktex 8
+                \draw[shorten >=\pgflinewidth,shorten <=\pgflinewidth]
+                                 (\tikzlastnode.north) -- (\tikzlastnode.south); % chktex 8
+            \endpgfextra%
+        }
+
+    }
+}
+
+

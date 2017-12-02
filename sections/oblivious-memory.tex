@@ -22,7 +22,8 @@
 
 		\note{
 			The idea is to build a secure cloud, and more specifically --- secure database.
-			The server is untrusted --- we assume an adversary can read every byte on the disk and track all CPU operations.
+			The server is untrusted --- we assume an adversary can read every byte on the disk and track all CPU operations, but cannot interfere.
+			This threat model is called \emph{honest-but-curious} adversary.
 			The first step is encrypting the database, so that only client can decrypt.
 			But that is just the first step --- what are we missing?
 

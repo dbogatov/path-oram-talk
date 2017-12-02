@@ -1,0 +1,75 @@
+\newcommand{\lockedData}{$\text{\lock}_\text{block}$}
+
+\begin{tikzpicture}[
+	every node/.append style={draw,minimum width=3em,minimum height=1.5em},
+	align=center,
+    >=latex
+]
+
+	\node[
+		draw=none,
+		inner sep=0,
+		outer sep=0,
+		scale=0.01
+	] (fake) {}; 
+
+	\node[
+		below=of fake,
+		label={above:{\small Position table}},
+		scale=0.75,
+		draw=none
+	] (table) {
+		
+		\begin{tabular}{ l | c }
+
+			Block ID	& Leaf ID	\\
+
+			\midrule%
+
+			5			& 6			\\
+			6			& 8			\\
+			7			& 1
+
+		\end{tabular}
+
+	};
+
+	\node[
+		label={\small Stash},
+		below=of table,
+		draw=none
+	] (stash) {
+		
+		$\{ 3, 5, 7, 13, \ldots \}$
+
+	};
+
+	\node[
+		label={Client},
+		fit=(fake)(table)(stash)
+	] (client) {
+
+
+	};
+
+	\node[
+		label={Server},
+		right=of client
+	] (server) {
+
+		\Tree 
+			[.\node[rounded corners, draw]{\lockedData};
+				[.\node[rounded corners, draw]{\lockedData};
+					[.\node[rounded corners, draw]{\lockedData}; ]
+					[.\node[rounded corners, draw]{\lockedData}; ]
+				]
+				[.\node[rounded corners, draw]{\lockedData};
+					[.\node[rounded corners, draw]{\lockedData}; ]
+					[.\node[rounded corners, draw]{\lockedData}; ]
+				]
+			]
+
+	};
+
+\end{tikzpicture}
+

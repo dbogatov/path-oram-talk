@@ -3,6 +3,7 @@
 shopt -s globstar
 set -e
 
+COMPILER=xelatex
 INTERACTION=batchmode
 OUTDIR=dist
 JOBNAME=presentation
@@ -10,7 +11,7 @@ ITERATIONS=3
 LATEX_DEBUG=""
 LATEX_NOTES=""
 
-usage() { echo "Usage: $0 [-i <number> -g -v -t -n -b -c <string>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-i <number> -g -v -t -n -b -j <string>]" 1>&2; exit 1; }
 
 log() {
 	if [ -n "${VERBOSE}" ]; then 
@@ -52,7 +53,7 @@ bibliography () {
 
 	for j in `seq 1 2`;	
 	do
-		xelatex \
+		${COMPILER} \
 			--interaction=${INTERACTION} \
 			-output-directory=${OUTDIR} \
 			-jobname=${JOBNAME} \
@@ -69,8 +70,11 @@ bibliography () {
 	echo "Done."
 }
 
-while getopts "c:i:vgtnb" o; do
+while getopts "c:j:i:vgtnb" o; do
 	case "${o}" in
+		c)
+			COMPILER=${OPTARG}
+			;;
 		b)
 			bibliography
 			exit 0
@@ -82,7 +86,7 @@ while getopts "c:i:vgtnb" o; do
 		v)
 			VERBOSE=true
 			;;
-		c)
+		j)
 			JOBNAME=${OPTARG}
 			;;
 		n)
@@ -123,7 +127,7 @@ echo "Compiling the project into ${JOBNAME}.pdf ..."
 
 for j in `seq 1 $ITERATIONS`;	
 do
-	xelatex \
+	${COMPILER} \
 		--interaction=${INTERACTION} \
 		-output-directory=${OUTDIR} \
 		-jobname=${JOBNAME} \
