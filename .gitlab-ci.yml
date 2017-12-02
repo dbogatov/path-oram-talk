@@ -30,10 +30,9 @@ bibfile:
   - docker
 
 artifacts:
-  image: tianon/latex
+  image: dbogatov/docker-images:latex-latest
   stage: build
   script:
-  - ./install-font-debian.sh
   - printf "\providecommand{\\\version}{%s}" $(echo $CI_BUILD_REF | cut -c1-8) > version.tex
   - ./build.sh
   - ./build.sh -n -c presentation-with-notes
