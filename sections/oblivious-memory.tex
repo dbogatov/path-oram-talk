@@ -1,4 +1,4 @@
-% cSpell:ignore bibfile Goldreich
+% cSpell:ignore bibfile Goldreich Dautrich
 
 \section{Oblivious Memory}
 
@@ -11,8 +11,14 @@
 		\pause%
 
 		\begin{alertblock}{Security vulnerability}
-			Adversary still sees the \textbf{access pattern}.
+			Adversary still sees the \textbf{access pattern} --- an ordered sequence of read/write operations on data records.
 		\end{alertblock}
+
+		\begin{exampleblock}{Attack example}
+			Compromising Privacy in Precise Query Protocols~\cite{Dautrich:2013:CPP:2452376.2452397}.
+			Observe range queries to recover order.
+			Requires $10^4$ queries to compromise privacy for database of over $10^6$ records.
+		\end{exampleblock}
 
 		\note{
 			The idea is to build a secure cloud, and more specifically --- secure database.

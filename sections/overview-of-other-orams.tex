@@ -1,25 +1,37 @@
+%cSpell:ignore tablebox
+
 \section{Overview of other ORAMs}
 
 	\begin{frame}{ORAMs Experimental Evaluation}
 		
-		\begin{tabular}{ l c c c c }
+		\begin{lrbox}{\tablebox}%
+			
+			\begin{tabular}{ l c c c c }
 
-			\toprule%
+				\toprule%
 
-			$ORAM$				& Computation	& Communication	& Server		& Client															\\
+				$ORAM$				& Computation	& Communication	& Server		& Client															\\
 
-			\midrule%
+				\midrule%
 
-			Basic-SR			& $N \log N$	& $N \log N$	& $N$			& $1$																\\
-			IBS-SR				& $N$			& $\sqrt{N}$	& $N$			& $\sqrt{N}$														\\
-			Basic-HR			& $N \log^2 N$	& $N \log^2 N$	& $N \log N$	& $1^b$																\\
-			BB-ORAM				& $\log^2 N$	& $N \log^2 N$	& $N \log N$	& $1$																\\
-			TP-ORAM				& $\sqrt{N}$	& $1$			& $N$			& $\sqrt{N} + \frac{N}{B}$											\\
-			\textbf{Path-ORAM}	& $\bm{\log N}$	& $\bm{1}$		& $\bm{N}$		&\footnote{$\BigO{\log N} \cdot \omega(1) + \BigO{\frac{N}{B}}$}	\\
+				Basic-SR			& $N \log N$	& $N \log N$	& $N$			& $1$																\\
+				IBS-SR				& $N$			& $\sqrt{N}$	& $N$			& $\sqrt{N}$														\\
+				Basic-HR			& $N \log^2 N$	& $N \log^2 N$	& $N \log N$	& $1^b$																\\
+				BB-ORAM				& $\log^2 N$	& $N \log^2 N$	& $N \log N$	& $1$																\\
+				TP-ORAM				& $\sqrt{N}$	& $1$			& $N$			& $\sqrt{N} + \frac{N}{B}$											\\
+				\textbf{Path-ORAM}	& $\bm{\log N}$	& $\bm{1}$		& $\bm{N}$		&\footnote{$\BigO{\log N} \cdot \omega(1) + \BigO{\frac{N}{B}}$}	\\
 
-			\bottomrule%
+				\bottomrule%
 
-		\end{tabular}
+			\end{tabular}
+
+		\end{lrbox}%
+		
+		\begin{center}
+
+			\scalebox{0.9}{\usebox{\tablebox}}
+
+		\end{center}
 
 		Table 2 from~\cite{Chang:2016:ORD:2994509.2994528}.
 		Worst-case scenarios shown.

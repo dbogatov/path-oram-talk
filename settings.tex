@@ -11,7 +11,10 @@
 
 \title{Data-X Talk} % chktex 13
 
-\subtitle{Path ORAM:\ An Extremely Simple Oblivious RAM Protocol~\cite{DBLP:journals/corr/abs-1202-5150}}
+\subtitle{
+	Path ORAM:\ An Extremely Simple Oblivious RAM Protocol by \emph{Emil Stefanov} and \emph{Elaine Shi} \\
+	\cite{DBLP:journals/corr/abs-1202-5150} % chktex 2
+}
 
 \date{Built from \href{https://git.dbogatov.org/bu/PathORAM-Talk/commit/\version}{\emph{\version}} on \today}
 
@@ -19,13 +22,15 @@
 
 \institute{Boston University}
 
-\logo{
-	\includegraphics[
-		width=1cm,
-		height=1cm,
-		keepaspectratio
-	]{static/logo.eps}\hspace{325pt}\vspace{-30pt}
-}
+\ifrelease%
+	\logo{
+		\includegraphics[
+			width=1cm,
+			height=1cm,
+			keepaspectratio
+		]{static/logo.eps}\hspace{325pt}\vspace{-30pt}
+	}
+\fi
 
 \addbibresource{bibfile.bib}
 
@@ -70,3 +75,13 @@
 }
 
 \captionsetup[figure]{labelformat=empty}
+
+\definecolor{CardinalRed}{RGB}{172,29,55} 
+\definecolor{Tangerine}{RGB}{247,148,30} 
+
+\setbeamercolor{alerted text}{fg=CardinalRed}
+\setbeamercolor{example text}{fg=Tangerine}
+{
+	\usebeamercolor[fg]{alerted text}
+	\usebeamercolor[fg]{example text}
+}

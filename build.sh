@@ -10,7 +10,7 @@ ITERATIONS=3
 LATEX_DEBUG=""
 LATEX_NOTES=""
 
-usage() { echo "Usage: $0 [-i <number> -g -v -t -n -c <string>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-i <number> -g -v -t -n -b -c <string>]" 1>&2; exit 1; }
 
 log() {
 	if [ -n "${VERBOSE}" ]; then 
@@ -41,8 +41,40 @@ test() {
 	echo "Tests passed!"
 }
 
-while getopts "c:i:vgtn" o; do
+bibliography () {
+
+	JOBNAME=bibliography
+	INTERACTION=batchmode
+
+	rm -f ${OUTDIR}/${JOBNAME}.pdf
+
+	echo "Compiling bibliography into ${JOBNAME}.pdf ..."
+
+	for j in `seq 1 2`;	
+	do
+		xelatex \
+			--interaction=${INTERACTION} \
+			-output-directory=${OUTDIR} \
+			-jobname=${JOBNAME} \
+			bibliography.tex
+
+		if [ "$j" == "1" ]
+		then
+			biber ${OUTDIR}/${JOBNAME}
+		fi
+	done
+
+	rm -f ${OUTDIR}/${JOBNAME}*.{aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb,bcf,xml}
+
+	echo "Done."
+}
+
+while getopts "c:i:vgtnb" o; do
 	case "${o}" in
+		b)
+			bibliography
+			exit 0
+			;;
 		g)
 			DEBUG=true
 			INTERACTION=nonstopmode
@@ -107,7 +139,7 @@ log "Done."
 
 echo "Removing build files..."
 
-rm -f ${OUTDIR}/*.{aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb,bcf,xml}
+rm -f ${OUTDIR}/${JOBNAME}*.{aux,log,out,xwm,toc,nav,snm,bbl,blg,vrb,bcf,xml}
 
 log "Done."
 
