@@ -21,6 +21,14 @@ cspell:
   tags:
   - docker
 
+bibfile:
+  image: tianon/latex
+  stage: lint
+  script:
+  - biber --tool -V bibfile.bib
+  tags:
+  - docker
+
 artifacts:
   image: tianon/latex
   stage: build
