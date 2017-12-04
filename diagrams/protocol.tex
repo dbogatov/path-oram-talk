@@ -1,13 +1,12 @@
 \newcommand{\lockedData}{$\text{\lock}_\text{block}$}
 
 \begin{tikzpicture}[
-	every node/.append style={draw,minimum width=3em,minimum height=1.5em},
+	every node/.append style={minimum width=3em,minimum height=1.5em},
 	align=center,
     >=latex
 ]
 
 	\node[
-		draw=none,
 		inner sep=0,
 		outer sep=0,
 		scale=0.01
@@ -16,8 +15,7 @@
 	\node[
 		below=of fake,
 		label={above:{\small Position table}},
-		scale=0.75,
-		draw=none
+		scale=0.75
 	] (table) {
 		
 		\begin{tabular}{ l | c }
@@ -37,7 +35,6 @@
 	\node[
 		label={\small Stash},
 		below=of table,
-		draw=none
 	] (stash) {
 		
 		$\{ 3, 5, 7, 13, \ldots \}$
@@ -46,15 +43,22 @@
 
 	\node[
 		label={Client},
-		fit=(fake)(table)(stash)
-	] (client) {
+		fit=(fake)(table)(stash),
+		draw
+	] (client) { };
 
-
+	\node[
+		label={User},
+		right=6.0 of client.north,
+	] (user) {
+		\Huge \user
 	};
 
 	\node[
 		label={Server},
-		right=of client
+		right=7.0 of client.south,
+		anchor=south,
+		draw
 	] (server) {
 
 		\Tree 
@@ -70,6 +74,41 @@
 			]
 
 	};
+
+	\uncover<2->{
+		\draw[
+			shorten >=\pgflinewidth,
+			->
+		] (user.west) -- node[sloped, anchor=center, above] {\scriptsize $\textsc{Access}(id)$} (client.north east);
+	}
+
+	\uncover<6->{
+		\draw[
+			shorten >=\pgflinewidth,
+			<-
+		] ([yshift=-3.0]user.west) -- node[sloped, anchor=center, below] {\scriptsize Return $data$} ([yshift=-3.0]client.north east);
+	}
+
+	\uncover<3->{
+		\draw[
+			shorten >=\pgflinewidth,
+			<-
+		] (server.north west) -- node[sloped, anchor=center, above] {\scriptsize Read path} (client.east);
+	}
+
+	\uncover<4->{
+		\draw[
+			shorten >=\pgflinewidth,
+			->
+		] ([yshift=-3.0]server.north west) -- node[sloped, anchor=center, below] {\scriptsize Return path} ([yshift=-3.0]client.east);
+	}
+
+	\uncover<5->{
+		\draw[
+			shorten >=\pgflinewidth,
+			->
+		] (client.south east) -- node[sloped, anchor=center, above] {\scriptsize Write path} (server.south west);
+	}
 
 \end{tikzpicture}
 
