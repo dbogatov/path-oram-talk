@@ -1,32 +1,21 @@
-% cSpell:ignore DBLP
+% cSpell:ignore DBLP manuallabel
 
 \begin{frame}{Max stash size grows linearly with $\lambda$}
 	
 	\begin{center}
 
-		\includegraphics[
-			height=5cm,
-			keepaspectratio
-		]{static/images/max-stash-size-linear.png}
-
+		\begin{figure}\manuallabel{fig:max-stash-size-linear}{figure}
+				
+			\includegraphics[
+				height=5cm,
+				keepaspectratio
+			]{static/images/max-stash-size-linear.png}
+				
+		\end{figure}
+		
 	\end{center}
 
 	Figure 3 from~\cite{DBLP:journals/corr/abs-1202-5150}.
-
-\end{frame}
-
-\begin{frame}{Max stash size does not depend on $N$}
-	
-	\begin{center}
-
-		\includegraphics[
-			height=5cm,
-			keepaspectratio
-		]{static/images/stash-size-does-not-depend-on-n.png}
-
-	\end{center}
-
-	Figure 4 from~\cite{DBLP:journals/corr/abs-1202-5150}.
 
 \end{frame}
 
@@ -34,23 +23,27 @@
 	
 	\begin{center}
 
-		\begin{tabular}{ l c c c }
+		\begin{figure}\manuallabel{tbl:stash-size-for-sec-parameters}{table}
 
-			\toprule%
+			\begin{tabular}{ l c c c }
 
-			\multirow{3}{*}{\textbf{Security parameter} $\lambda$}	& \multicolumn{3}{c}{\textbf{Bucket size} $Z$}					\\
-																	& 4												& 5		& 6		\\
-																	& \multicolumn{3}{c}{\textbf{Max stash size}}					\\
+				\toprule%
 
-			\midrule%
+				\multirow{3}{*}{\textbf{Security parameter} $\lambda$}	& \multicolumn{3}{c}{\textbf{Bucket size} $Z$}					\\
+																		& 4												& 5		& 6		\\
+																		& \multicolumn{3}{c}{\textbf{Max stash size}}					\\
 
-			80														& 89											& 63	& 53	\\
-			128														& 147											& 105	& 89	\\
-			256														& 303											& 218	& 186	\\
+				\midrule%
 
-			\bottomrule%
+				80														& 89											& 63	& 53	\\
+				128														& 147											& 105	& 89	\\
+				256														& 303											& 218	& 186	\\
 
-		\end{tabular}
+				\bottomrule%
+
+			\end{tabular}
+
+		\end{figure}
 
 	\end{center}
 
@@ -58,3 +51,21 @@
 
 \end{frame}
 
+\begin{frame}{Max stash size does not depend on $N$}
+	
+	\begin{center}
+
+		\begin{figure}\manuallabel{fig:stash-size-does-not-depend-on-n}{figure}
+
+			\includegraphics[
+				height=5cm,
+				keepaspectratio
+			]{static/images/stash-size-does-not-depend-on-n.png}
+
+		\end{figure}
+
+	\end{center}
+
+	Figure 4 from~\cite{DBLP:journals/corr/abs-1202-5150}.
+
+\end{frame}

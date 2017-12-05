@@ -35,7 +35,7 @@ artifacts:
   script:
   - printf "\providecommand{\\\version}{%s}" $(echo $CI_BUILD_REF | cut -c1-8) > version.tex
   - ./build.sh
-  - ./build.sh -n -j presentation-with-notes
+  - ./build.sh -n on -j presentation-with-notes
   - ./build.sh -b
   - mv dist/*.pdf .
   artifacts:

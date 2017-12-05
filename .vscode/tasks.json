@@ -19,7 +19,7 @@
 		{
 			"label": "Compile once notes",
 			"type": "shell",
-			"command": "./build.sh -g -i 1 -n",
+			"command": "./build.sh -g -i 1 -n on",
 			"group": {
 				"kind": "build",
 				"isDefault": true
@@ -35,7 +35,7 @@
 		{
 			"label": "Compile multiple notes",
 			"type": "shell",
-			"command": "./build.sh -g -n",
+			"command": "./build.sh -g -n on",
 			"group": "build",
 			"presentation": {
 				"echo": true,

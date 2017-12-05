@@ -23,7 +23,7 @@
 		\note{
 			In the experiments, authors used a binary tree of height $\ceil*{\log_2 N} - 1$.
 
-			Let us define \emph{stash occupancy} is the number of overflowing blocks.
+			Let us define \emph{stash occupancy} as the number of overflowing blocks.
 			Thus, this would be a client's persistent local storage in addition to $Z \log_2 N$ transient storage for storing single path.
 
 			We access PathORAM in a round-robin fashion --- it is proven to be the worst-case scenario for PathORAM\@.
@@ -42,16 +42,16 @@
 				\item 
 					Required stash size grows linearly with the security parameter.
 					Failure probability decreases exponentially with the stash size.
-					See appendix.
+					See~\ref{fig:max-stash-size-linear} in appendix.
 				\item 
 					Extrapolate those results for realistic values of $\lambda$.
-					See appendix.
+					See~\ref{tbl:stash-size-for-sec-parameters} in appendix.
 				\item 
 					It is by definition infeasible to simulate for practically adopted security parameters (e.g., $\lambda = 128$)
 				\item
 					Required stash size for a low failure probability does not depend on $N$.
 					This shows PathORAM has good scalability.
-					See appendix.
+					See~\ref{fig:stash-size-does-not-depend-on-n} in appendix.
 			\end{itemize}
 			
 		\end{block}
@@ -92,7 +92,7 @@
 		\note{
 			Another set of observations about bucket load.
 			
-			For $Z \in \{ 4, 5 \}$, the usage of a subtree is close to the number of buckets in it.
+			For $Z \ge 4$ the usage of a subtree is close to the number of buckets in it.
 			This means, we do not waste space with dummy blocks.
 
 			For the levels close to the root, the bucket load is 1 block.

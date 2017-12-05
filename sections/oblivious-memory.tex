@@ -30,9 +30,9 @@
 			An adversary can see the access pattern.
 			It can see which records are accessed more often.
 			Which records are accessed only after some other records were touched.
-			How ofter read vs write operations occur.
+			How often read vs write operations occur.
 
-			\emph{What are the examples of attacks when access pattern is leaked?}
+			Talk about~\cite{Dautrich:2013:CPP:2452376.2452397} paper.
 		}
 	\end{frame}
 
@@ -44,7 +44,7 @@
 
 		\note{
 			A solution is to design an oblivious memory access system.
-			This definition of oblivious machine is cited from the original paper on ORAMs by Goldreich and others from May 1996 --- around my birthday.
+			This definition of oblivious machine is cited from the original paper on ORAMs by \textcite{Goldreich:1996:SPS:233551.233553} from May 1996 --- around my birthday.
 			Among the other things the paper states a number of theorems on computational bounds of generic ORAMs.
 
 			Although the paper analyzes generic ORAMs, 20 years ago people were more concerned about CPU working with RAM access patterns.
@@ -74,7 +74,9 @@
 		\note{
 			This are some theorems stated and proved in the paper.
 			I am not going to do proofs here.
-			The idea is that these are theoretical bounds for generic ORAMs.
-			Designing our owm ORAM the aim is to come as close as possible to lower bounds.
+			The idea is that these are the theoretical bounds for generic ORAMs.
+			Designing our own ORAM the aim is to come as close as possible to lower bounds.
+			
+			In fact, PathORAM does hit the lower bound --- $\log m$ steps per each access.
 		}
 	\end{frame}

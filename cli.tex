@@ -10,11 +10,12 @@
 	\releasetrue%
 \fi
 
-
-\newif\ifnotes%
-
-\ifdefined\generatenotes%
-	\notestrue%
-\else
-	\notesfalse%
-\fi
+\ifnum\pdfstrcmp{\generatenotes}{on}=0%
+	\newcommand{\notesOption}{show notes on second screen}%
+\else%
+	\ifnum\pdfstrcmp{\generatenotes}{only}=0%
+		\newcommand{\notesOption}{show only notes}%
+	\else%
+		\newcommand{\notesOption}{hide notes}%
+	\fi%
+\fi%

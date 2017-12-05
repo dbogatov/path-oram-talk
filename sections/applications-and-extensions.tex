@@ -9,6 +9,8 @@
 		PathORAM can be used to perform search on an oblivious binary search tree, using $\BigO{\log^2 N}$ bandwidth.~\cite{Gentry:2013}
 
 		\note{
+			\textcite{Gentry:2013} suggested that ORAMs can be used to perform search on an oblivious binary search tree.
+
 			Underlying data structure for PathORAM is an oblivious binary tree.
 			One \textsc{Access} for the ORAM is equivalent to binary tree search.
 			This way, without re-randomization and write back subroutine, PathORAM \textsc{Access} is the same as binary search.
@@ -22,7 +24,7 @@
 
 		\note{
 			If we are using recursive PathORAM, we can upload and download client state --- which is $\BigO{\log N} \cdot \omega (1)$ --- before each access.
-			This ways we can build a \emph{stateless} ORAM --- potentially, multi-user ORAM\@.
+			This way we can build a \emph{stateless} ORAM --- potentially, multi-user ORAM\@.
 		}
 	\end{frame}
 
@@ -36,8 +38,8 @@
 
 		\note{
 			Due to its simplicity, PathORAM is particularly good for silicon implementations.
-			For example, Martin Mass has build such implementation using FPGAs.
-			Fletcher and Ren built a simulator for a processor based on PathORAM\@.
+			For example, \textcite{Maas:EECS-2014-89} has build such implementation using FPGAs. % chktex 8
+			\textcite{Fletcher:2012:SPA:2382536.2382540} and \textcite{ren2013design} built a simulator for a processor based on PathORAM\@.
 		}
 	\end{frame}
 
@@ -52,7 +54,7 @@
 		\]
 
 		\note{
-			It is possible to treat PAthORAM internal tree structure as a Merkle tree.
-			Each node is tagged with the hash of the following form, which is a concatenation of hashes of all blocks in the bucket, and left and right child of the node.
+			It is possible to treat PathORAM internal tree structure as a Merkle tree.
+			Each node is tagged with the hash of the following form, which is a concatenation of hashes of all blocks in the bucket, and the children of the node.
 		}
 	\end{frame}

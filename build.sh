@@ -8,10 +8,10 @@ INTERACTION=batchmode
 OUTDIR=dist
 JOBNAME=presentation
 ITERATIONS=3
+NOTES="off"
 LATEX_DEBUG=""
-LATEX_NOTES=""
 
-usage() { echo "Usage: $0 [-i <number> -g -v -t -n -b -j <string>]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-i <number> -g -v -t -n <string: on|only|off> -b -j <string>]" 1>&2; exit 1; }
 
 log() {
 	if [ -n "${VERBOSE}" ]; then 
@@ -70,7 +70,7 @@ bibliography () {
 	echo "Done."
 }
 
-while getopts "c:j:i:vgtnb" o; do
+while getopts "c:j:i:n:vgtb" o; do
 	case "${o}" in
 		c)
 			COMPILER=${OPTARG}
@@ -90,7 +90,7 @@ while getopts "c:j:i:vgtnb" o; do
 			JOBNAME=${OPTARG}
 			;;
 		n)
-			NOTES=true
+			NOTES=${OPTARG}
 			;;
 		i)
 			ITERATIONS=${OPTARG}
@@ -119,9 +119,7 @@ if [ -n "${DEBUG}" ]; then
 	LATEX_DEBUG="\def\debug{true}"
 fi
 
-if [ -n "${NOTES}" ]; then
-	LATEX_NOTES="\def\generatenotes{true}"
-fi
+LATEX_NOTES="\def\generatenotes{$NOTES}"
 
 echo "Compiling the project into ${JOBNAME}.pdf ..."
 

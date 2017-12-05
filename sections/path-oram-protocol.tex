@@ -8,25 +8,53 @@
 			
 			\input{diagrams/protocol}
 
-			\note{
-				TODO
+			\note<1> {
+				Here is the diagram of PathORAM protocol.
+				There are two components in the ORAM model and a user interacting with the system.
+				
+				Server basically holds a binary tree of buckets with encrypted blocks.
+
+				Client holds two data structures --- position map and stash --- we will talk about them in a moment.
 			}
+
+			\note<2>{
+				First, user makes a request to the (trusted) client part.
+				User requests --- to read or to write --- a block with certain identifier.
+			}
+
+			\note<3,4>{
+				If client does not have the block in stash, it makes a request to the server and reads a path with encrypted blocks.
+
+				Server responds with a path of buckets of encrypted blocks.
+			}
+
+			\note<5>{
+				Client manipulates these blocks --- re-encrypts them, shuffles them and write the path back.
+				We will talk about how client writes path back in a randomized way.
+			}
+
+			\note<6>{
+				Finally, a client returns data to the user.
+			}
+
 		\end{frame}
 
 		\begin{frame}{Main invariant}
 			
 			The client stores a small amount of local data in a \textbf{stash}.
-			The server-side storage is treated as a \textbf{binary tree} where each node is a \textbf{bucket} that can hold up to a fixed number of \textbf{blocks}.
+			The server-side storage is treated as a \textbf{binary tree} where each node is a \textbf{bucket} that holds an exact fixed number of \textbf{blocks}.
 
 			\begin{block}{Invariant}
 				At any time, each block is mapped to a uniformly random leaf bucket in the tree, and unstashed blocks are always placed in some bucket along the path to the mapped leaf.
 			\end{block}
 
 			\note{
-				An underlying data structure for PAth ORAM is a binary tree.
+				An underlying data structure for PathORAM is a binary tree.
 				Client has a position table where each data block ID is mapped to the leaf node.
 				Each time access occurs, whole path from the leaf to the root gets read and written.
 				This ensures indistinguishability.
+
+				The goal of the invariant is to keep position map accurate at all times.
 			}
 		\end{frame}
 
@@ -36,23 +64,23 @@
 			
 			\begin{block}{Binary tree}
 				The server stores a binary tree data structure of height $L$ and $2^L$ leaves.
-				We then need $L = \ceil*{ \log_2 N }$. 
+				We then need $L = \ceil*{ \log_2 N }$ levels. 
 				The levels of the tree are numbered $0$ to $L$ where level $0$ denotes the root of the tree and level $L$ denotes the leaves.
 			\end{block}
 
 			\note{
 				Let us define $L$ --- the height of our tree.
 				Then reasonably it will be equal to $\log_2 N$ rounded up.
-				Let us also define 0 level as root and $L$th level as leaves.
+				Let us also define 0 level as root and $L_\text{th}$ level as leaves.
 			}
 		\end{frame}
 
 		\begin{frame}{\subsecname}
 			
 			\begin{block}{Bucket}
-				Each node in the tree is called a bucket. 
+				Each node in the tree is called \textbf{bucket}. 
 				Each bucket can contain up to $Z$ real blocks. 
-				If a bucket has less than $Z$ real blocks, it is padded with dummy blocks to always be of size $Z$.
+				If a bucket has fewer than $Z$ real blocks, it is padded with dummy blocks to always be of size $Z$.
 			\end{block}
 
 			\note{
@@ -67,13 +95,13 @@
 			
 			\begin{block}{Path}
 				Let $x \in \{ 0, 1, \ldots, 2^L - 1 \}$ denote the $x_{\text{th}}$ leaf node in the tree. 
-				Any leaf node $x$ defines a unique path from leaf $x$ to the root of the tree.
-				We use $\mathcal{P}(x)$ to denote set of buckets along the path from leaf $x$ to the root. 
+				Any leaf node $x$ defines a unique path from the root of the tree to the leaf $x$.
+				We use $\mathcal{P}(x)$ to denote a set of buckets along the path from leaf $x$ to the root. 
 				Additionally, $\mathcal{P}(x,l)$ denotes the bucket in $\mathcal{P}(x)$ at level $l$ in the tree.
 			\end{block}
 
 			\note{
-				Let us define a path from leaf $x$ to root as $\mathcal{P}(x)$.
+				Let us define a path from leaf $x$ to the root as $\mathcal{P}(x)$.
 				Let us also define $\mathcal{P}(x,l)$ as the bucket along the path at level $l$.
 			}
 		\end{frame}
@@ -82,12 +110,12 @@
 			
 			\begin{block}{Server storage size}
 				Total server storage used is about $Z \cdot N$ blocks.
-				Since $Z$ is s small constant, server storage is $\BigO{N}$.
+				Since $Z$ is a small constant, server storage is $\BigO{N}$.
 			\end{block} 
 
 			\note{
 				Let us make an important observation.
-				The total server storage used is the order of $N$ since $Z$ is s small constant.
+				The total server storage used is the order of $N$ since $Z$ is a small constant.
 			}
 		\end{frame}
 
@@ -96,7 +124,7 @@
 		\begin{frame}{\subsecname}
 			
 			\begin{block}{Stash}
-				The client locally stores overflowing blocks in a local data structure $S$ called the stash.
+				The client locally stores overflowing blocks in a local data structure $S$ called \textbf{stash}.
 				The stash has a worst-case size of $\BigO{\log N} \cdot \omega (1)$ blocks with high probability.
 				The stash is usually empty after each ORAM read/write operation completes.
 			\end{block} 
@@ -104,8 +132,8 @@
 			\note{
 				The core component of the client is stash.
 				It is a local data structure that stores overflowing blocks.
-				PathORAM protocol is a randomized, and the error is the event that this stash overflows.
-				The analysis, though, shows that this happens with negligible probability.
+				PathORAM protocol is randomized, and the error is the event that this stash overflows.
+				The analysis, though, shows that for $\log N$ size of the stash this happens with negligible probability.
 			}
 		\end{frame}
 
@@ -118,21 +146,21 @@
 
 			\note{
 				Another core structure of the client is the position table.
-				It is a simple lookup table that maps the block identifier with identifier $a$ to some leaf $x$.
-				The bucket does not necessarily live in the leaf, but it is guaranteed to leave somewhere along the path or in the stash.
-				The key to security is the re-randomization of this table each access.
+				It is a simple lookup table that maps the block with identifier $a$ to some leaf $x$.
+				The bucket does not necessarily live in the leaf, but it is guaranteed to live somewhere along the path or in the stash.
+				The key to security is the re-randomization of this table on each access.
 			}
 		\end{frame}
 
 		\begin{frame}{\subsecname}
 			
 			\begin{block}{Bandwidth}
-				For each load or store operation, the client reads a path of $Z \log N$ blocks from the server and then writes them back, resulting in a total of $2Z \log N$ blocks bandwidth used per access. 
+				For each load or store operation, the client reads a path of $Z \log N$ blocks from the server and then writes it back, resulting in a total of $2Z \log N$ blocks bandwidth used per access. 
 				Since $Z$ is a constant, the bandwidth usage is $\BigO{\log N}$ blocks.
 			\end{block} 
 
 			\note{
-				Each read and write, client reads whole path and writes it back.
+				Each read and write, client reads the whole path and writes it back.
 				A path is $Z \log N$ blocks, and since $Z$ is a small constant, resulting usage is $\BigO{\log N}$ in the number of blocks.
 			}
 		\end{frame}
@@ -140,14 +168,15 @@
 		\begin{frame}{\subsecname}
 			
 			\begin{block}{Client storage size}
-				The position map is of size $N L = N \log N$ bits, which is of size $\BigO{N}$ blocks when the block size $\BigOmega{\log N}$.
+				The position map is of size $N L = N \log N$ bits, which is of size $\BigO{N}$ blocks when the block size $\BigOmega{\log N}$ bits.
+
 				The stash is at most $\BigO{\log N} \cdot \omega (1)$ blocks to obtain negligible failure probability.
 				The recursive construction can achieve client storage of $\BigO{\log N} \cdot \omega (1)$.
 			\end{block} 
 
 			\note{
-				Position map is the order of $N$ and the stash is order of $\log N$ for negligible error probability.
-				So, for the basic PAthORAM the client storage usage is order fo $N$.
+				Position map is the order of $N$ and the stash is the order of $\log N$ for negligible error probability.
+				So, for the basic PathORAM the client storage usage is order fo $N$.
 				However, it is possible to use recursive version of the ORAM, which I will talk about later, to lower the usage to the order of $\log N$.
 			}
 		\end{frame}
@@ -168,8 +197,10 @@
 	
 	\note{
 		The client stash $S$ is initially empty. 
-		The server buckets are initialized to contain random encryptions of the dummy block. 
+		The server buckets are initialized to contain randomized encryptions of the dummy blocks.
 		The client's position map is filled with independent random numbers between 0 and $2^L - 1$.
+
+		When the access occurs, the requested block is remapped.
 	}
 
 \end{frame}
@@ -203,7 +234,7 @@
 	]{listings/algorithm.tex}
 
 	\note{
-		If the access is a write, update the data stored for block $a$.
+		If the access is a \texttt{write}, update the data stored for block $a$.
 	}
 
 \end{frame}
@@ -266,7 +297,7 @@
 
 		$\textsc{WriteBucket}(bucket, blocks)$ writes blocks in the bucket on the server.
 		It pads blocks to make it $Z$ blocks total.
-		Remember that all bucket should be filled to make them indistinguishable to adversary.
+		Remember that all buckets should be filled to make them indistinguishable to adversary.
 		Blocks are encrypted as they are written using randomized scheme --- every cipher text is different for the same plaintext.
 	}
 \end{frame}
@@ -329,8 +360,8 @@
 
 			\note{
 				Our definition of security requires that the access pattern is indistinguishable from random.
-				Encrypted paths look random enough by the definition of security --- and we use randomized encryption since deterministic one does not even satisfy chosen plaintext attack security.
-				The access pattern is random enough since the probability of a particular access is $\frac{1}{2^L}$ --- uniform in the number of blocks because each access the position table is re-randomized.
+				Encrypted paths look random enough by the definition of secure encryption --- and we use randomized encryption since deterministic one does not even satisfy chosen plaintext attack security.
+				The access pattern is random enough since the probability of a particular sequence is $\frac{1}{2^L}$ --- uniform in the number of blocks because each access the position table is re-randomized.
 				For $M$ access, the probability is even smaller by the Bayes rule.
 			}
 		\end{frame}

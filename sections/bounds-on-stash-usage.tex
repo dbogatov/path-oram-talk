@@ -8,7 +8,7 @@
 			For a bucket size $Z = 5$, tree height $L = \ceil{\log N}$ and stash size $R$, the probability of a PathORAM failure after a sequence of load/store operations corresponding to $\bm{a}$, is at most
 			
 			\[
-				\Pr \left[ \text{st} \left( \text{ORAM}_L^5 [ \bm{s} ] \right) > R | a( \bm{s} ) = \bm{a} \right] \le 14 \cdot (0.6002)^R
+				\Pr \left[ \text{st} \left( \text{ORAM}_L^5 [ \bm{s} ] \right) > R \; | \; a( \bm{s} ) = \bm{a} \right] \le 14 \cdot (0.6002)^R
 			\]
 
 			where the probability is over the randomness that determines $\bm{x}$ and $\bm{y}$ in $\bm{s = (a, x, y)}$.
@@ -17,7 +17,7 @@
 
 		\note{
 			The whole proof of negligible failure probability is about proving this theorem.
-			It might look complex, but simply put, what is says is that for any ORAM with 5 blocks per bucket, stash usage exceeds some stash size $R$ with probability at most exponentially small with respect ot $R$.
+			It might look complex, but simply put, what it says is that for any ORAM with 5 blocks per bucket, stash usage exceeds some stash size $R$ with probability at most exponentially small with respect to $R$.
 
 			Or, even simpler, the probability of exceeding stash capacity decreases exponentially with the stash size, given that the bucket size $Z$ is large enough.
 
@@ -45,6 +45,6 @@
 
 			Second, they show that the stash usage after post-processing is $> R$ if and only if there exists a subtree $T$ for which its ``usage'' in $\infty$-ORAM is more than its ``capacity''.
 
-			Finally, they show how a mixture of a binomial and a geometric probability distribution expresses the probability of the number of real blocks that do not get evicted from a subtree after a sequence of load/store operations.
+			Finally, they show how a mixture of binomial and geometric probability distributions expresses the probability of the number of real blocks that do not get evicted from a subtree after a sequence of load/store operations.
 		}
 	\end{frame}

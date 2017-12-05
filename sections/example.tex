@@ -11,7 +11,7 @@
 		{\drawMap{Initial position map}}
 		{
 			Here we see the initial state before we access an element.
-			Buckets are filled greedily from bottom to the top.
+			Buckets are filled greedily from the bottom to the top.
 			Leaves are numbered left to right.
 			Each number in the buckets corresponds to encrypted data block and each empty set symbol corresponds to dummy data block.
 			Position table shows the mapping from data blocks to leaves.
@@ -58,6 +58,7 @@
 			\end{block}
 		}
 		{
+			\vspace{10pt}
 			\begin{block}{Remap}
 				
 				Assign random leaf
@@ -69,16 +70,16 @@
 			\end{block}
 		}
 		{
-			Now all those data blocks appear in stash.
-			We now for a fact that our block of interest is there as well.
+			Now, all those data blocks appear in the stash.
+			We know for a fact that our block of interest is there as well.
 			We extract it to data variable.
 			We change block's data and re-encrypt all data blocks.
 			We then put it back to stash.
 
 			It is important that we also re-map the block.
-			Let say we assign it new leaf --- number 3.
+			Let say we assign it a new leaf --- number 3.
 
-			Now we need to write path back.
+			Now we need to write the path back.
 		}
 
 	\exampleFrame%
@@ -101,7 +102,7 @@
 		}
 		{
 			We start filling buckets with data blocks greedily from leaves.
-			We pick those $Z = 3$ blocks from stash which can be placed on the level in path not breaking invariant.
+			We pick those $Z = 3$ blocks from the stash which can be placed on the level in path not breaking invariant.
 			If fewer than $Z$ blocks can be placed, we pad it with dummy blocks.
 		}	
 
@@ -195,7 +196,7 @@
 			Please note that the adversary only sees that we have read whole path and written whole path.
 			She is not able to see which data block was modified because we re-encrypted everything.
 
-			Keep in mind that it is possible that stash is not empty at the end of operation.
+			Keep in mind that it is possible that stash is not empty at the end of an operation.
 			It is unlikely to happen.
 			The stash is emptied during the next accesses.
 		}
