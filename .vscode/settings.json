@@ -1,4 +1,8 @@
 {
+	"cSpell.ignoreRegExpList": [
+		"\\\\\\w*(\\[.*?\\])?(\\{.*?\\})?",
+		"\\$.+?\\$"
+	],
 	"cSpell.words": [
 		"Bogatov",
 		"Burkard",
