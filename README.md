@@ -1,5 +1,8 @@
 # Data-X Talk presentation
 
+[![pipeline status](https://git.dbogatov.org/bu/PathORAM-Talk/badges/master/pipeline.svg)](https://git.dbogatov.org/bu/PathORAM-Talk/commits/master)
+
+
 ## Path ORAM: An Extremely Simple Oblivious RAM Protocol
 
 Paper by Emil Stefanov *et al.* published in "Proceedings of the 2013 ACM SIGSAC Conference on Computer Communications Security". CCS ’13. Berlin, Germany.
