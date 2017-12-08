@@ -19,7 +19,29 @@ This presentation is developed by Dmytro Bogatov (dmytro@bu.edu) BU CS PhD stude
 Presentation is written in LaTeX using beamer package.
 It is compile in CI system (Gitlab CI) which checks spelling, lints latex code, verifies `bibfile.bib` and complies source to PDF file (see [.gitlab-ci.yml](.gitlab-ci.yml)).
 
-Main repo is [https://git.dbogatov.org/bu/PathORAM-Talk](https://git.dbogatov.org/bu/PathORAM-Talk).
+Main repo is [git.dbogatov.org/bu/PathORAM-Talk](https://git.dbogatov.org/bu/PathORAM-Talk).
+
+## How to compile
+
+Prerequisites
+* Modern TeX distribution (2016 and later)
+	* biber
+	* xelatex
+* Fira Sans font (https://github.com/carrois/Fira)
+* bash 4 (and later)
+
+Or, use `dbogatov/docker-images:latex-latest` docker image.
+
+	# just presentation
+	./build.sh
+
+	# presentation with notes
+	./build.sh -n on -j presentation-with-notes
+
+	# just bibliography
+	./build.sh -b
+
+Output files are in `./dist/`.
 
 ### Legal
 
