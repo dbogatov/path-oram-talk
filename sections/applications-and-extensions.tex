@@ -32,7 +32,7 @@
 		
 		PathORAM is particularly amenable to hardware design because of its simplicity and low on-chip storage requirements.
 
-		\textcite{Maas:EECS-2014-89} built a hardware implementation of a Path ORAM based secure processor using FPGAs and the Convey platform. % chktex 8
+		\textcite{Maas:EECS-2014-89} built a hardware implementation of a PathORAM based secure processor using FPGAs and the Convey platform. % chktex 8
 
 		\textcite{Fletcher:2012:SPA:2382536.2382540, fletcher2013ascend} and \textcite{ren2013design} built a simulator for a secure processor based on PathORAM\@.
 
@@ -47,7 +47,7 @@
 		
 		The protocol can be easily extended to provide integrity (with freshness) for every access to the untrusted server storage.
 
-		We can achieve integrity by simply treating the Path ORAM tree as a \emph{Merkle tree} where data is stored in all nodes of the tree.
+		We can achieve integrity by simply treating the PathORAM tree as a \emph{Merkle tree} where data is stored in all nodes of the tree.
 
 		\[
 			H (b_1 || b_2 || \ldots || b_Z || h_1 || h_2 )
