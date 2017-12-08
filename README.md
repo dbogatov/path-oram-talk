@@ -19,6 +19,8 @@ Paper by Emil Stefanov *et al.* published in "Proceedings of the 2013 ACM SIGSAC
 
 This presentation is developed by Dmytro Bogatov (dmytro@bu.edu) BU CS PhD student 23'.
 
+The up-to-date version is built in CI and resides as artifact [here](https://git.dbogatov.org/bu/PathORAM-Talk/-/jobs/artifacts/master/raw/presentation.pdf?job=artifacts) or browse all artifacts [here](https://git.dbogatov.org/bu/PathORAM-Talk/-/jobs/artifacts/master/browse?job=artifacts).
+
 Presentation is written in LaTeX using beamer package.
 It is compile in CI system (Gitlab CI) which checks spelling, lints latex code, verifies `bibfile.bib` and complies source to PDF file (see [.gitlab-ci.yml](.gitlab-ci.yml)).
 
