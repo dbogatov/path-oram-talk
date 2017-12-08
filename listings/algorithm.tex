@@ -5,7 +5,7 @@ for $\ell \in \{ 0, 1, \ldots , L \}$ do
 end for
 data $\gets$ Read block $a$ from $S$
 if $op = write$ then
-    $S \gets (S - \{ (a, data) \} ) \cup \{ (a, data^{\mbox{*}} \} )$
+    $S \gets (S - \{ (a, data) \} ) \cup \{ (a, data^{*} \} )$
 end if
 for $\ell \in \{ L, L-1, \ldots , 0 \}$ do
     $S^\prime \gets \{ (a^\prime, data^\prime) \in S : \mathcal{P}(x, \ell) = \mathcal{P}( \text{position}[a^\prime], \ell) \}$
